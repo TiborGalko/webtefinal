@@ -1,7 +1,7 @@
 <?php
-print_r($_FILES);
+print_r($_POST);
 if(isset($_POST['submit'])) {
-    parseCsv($_FILES['file']['tmp_name']);
+    parseCsv($_FILES['file']['tmp_name'], $_POST['delim']);
 }
 
 //prevzate z https://secure.php.net/manual/en/function.mb-convert-encoding.php
@@ -58,9 +58,9 @@ function w1250_to_utf8($text) {
 }
 
 //rozdelenie uploadnuteho csv
-function parseCsv($file) {
+function parseCsv($file, $delim) {
     if (($handle = fopen($file, "r")) !== FALSE) {
-        while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, $delim)) !== FALSE) {
             $num = count($data);
             for ($c = 0; $c < $num; $c++) {
                 echo w1250_to_utf8($data[$c]) . "<br />\n";
