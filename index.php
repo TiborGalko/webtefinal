@@ -15,17 +15,21 @@
     <link href="css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-
-
+<header>
+    <h1>Úvodná stránka</h1>
+</header>
+<div>
+<label for="sel">Výber zobrazenia: </label>
+<select id="sel">
+    <option>Miesta</option>
+    <option>Školy</option>
+</select>
+<input type="button" value="Zobraziť">
+</div>
 <div id="map"></div>
 
-<form>
-    <label for="email">Email: </label>
-    <input id="email" type="text" name="email">
-    <label for="heslo">Heslo: </label>
-    <input id="heslo" type="password" name="password">
-    <input type="submit" value="Potvrdiť">
-</form>
+<a href="prihlasenie.html">Prihlásiť sa</a>
+<a href="registracia.html">Registrovať sa</a>
 
 <script>
     let map;
