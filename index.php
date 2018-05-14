@@ -16,6 +16,7 @@
     <script src="news/news-script.js"></script>
     <script src="news/jquery.redirect-master/jquery.redirect.js"></script>
 
+
     <link href="css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -32,8 +33,10 @@
 </div>
 <div id="map"></div>
 
+
 <a href="user/prihlasenie.html">Prihlásiť sa</a>
 <a href="user/registracia.html">Registrovať sa</a>
+
 
 <script>
     let map;
@@ -51,6 +54,7 @@
         });
     }
 </script>
+
 
 <!-- news -->
 <!-- vytvara elemnty s ID 1,2,... kvoli tomu aby sa dalo dobre selectovat z DB, prosim taketo idcka nepouzivajte -->
@@ -89,6 +93,7 @@
     $conn->close();
 
 ?>
+
 </body>
 </html>
 
