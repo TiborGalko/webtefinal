@@ -8,7 +8,7 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -16,10 +16,12 @@
 </header>
 
 
-<form action="upload.php" method="post" enctype="multipart/form-data">
+<form action="../scripts/upload.php" method="post" enctype="multipart/form-data">
     <label for="delim">Oddeľovač: </label>
     <input id="delim" type="text" name="delim">
-    Select image to upload:
+    <label for="riadok">Od riadka: </label>
+    <input id="riadok" type="number" name="riadok">
+    Select file to upload:
     <input type="file" name="file" id="file">
     <input type="submit" value="Upload" name="submit">
 </form>
