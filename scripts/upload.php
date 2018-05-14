@@ -1,7 +1,10 @@
 <?php
+include_once "../db/usersdb.php";
+
+
 print_r($_POST);
 if(isset($_POST['submit'])) {
-    parseCsv($_FILES['file']['tmp_name'], $_POST['delim']);
+    parseCsv($_FILES['file']['tmp_name'], $_POST['delim'], $_POST['riadok']);
 }
 
 //prevzate z https://secure.php.net/manual/en/function.mb-convert-encoding.php
@@ -58,16 +61,39 @@ function w1250_to_utf8($text) {
 }
 
 //rozdelenie uploadnuteho csv
-function parseCsv($file, $delim) {
+function parseCsv($file, $delim, $riadok) {
     if (($handle = fopen($file, "r")) !== FALSE) {
+        $row = 1;
         while (($data = fgetcsv($handle, 1000, $delim)) !== FALSE) {
-            $num = count($data);
-            for ($c = 0; $c < $num; $c++) {
-                echo w1250_to_utf8($data[$c]) . "<br />\n";
+            if($row < $riadok) {
+                continue;
             }
+            $row++;
+
+            $num = count($data);
+            $user = array();
+            $school = array();
+            for ($c = 0; $c < $num; $c++) {
+                $d = str_replace (array("\r\n", "\n", "\r"), ' ', w1250_to_utf8($data[$c]));
+                switch ($c) {
+                    case 0: $user['id'] = $d; break;
+                    case 1: $user['surname'] = $d; break;
+                    case 2: $user['name'] = $d; break;
+                    case 3: $user['email'] = $d; break;
+                    case 4: $school['name'] = $d; break;
+                    case 5: $school['addr'] = $d; break;
+                    case 6: $user['street'] = $d; break;
+                    case 7: $user['psc'] = $d; break;
+                    case 8: $user['city'] = $d; break;
+                }
+            }
+            insertNewUser($user['surname'],$user['name'],$user['email'],
+                $school['name'],$school['addr'],$user['street'],$user['psc'],$user['city']);
         }
         fclose($handle);
     }
 }
+
+
 
 ?>

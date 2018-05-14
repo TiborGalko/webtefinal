@@ -14,7 +14,7 @@
 
     <!-- news script -->
     <script src="news/news-script.js"></script>
-    <script src="news/jquery.redirect-master/jquery.redirect.js"></script>
+    <script src="libs/jquery.redirect-master/jquery.redirect.js"></script>
 
 
     <link href="css/style.css" type="text/css" rel="stylesheet">

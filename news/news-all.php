@@ -7,7 +7,7 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
 	<script src="news-script-all.js"></script>
-    <script src="jquery.redirect-master/jquery.redirect.js"></script>
+    <script src="../libs/jquery.redirect-master/jquery.redirect.js"></script>
 
     <link href="../css/style.css" type="text/css" rel="stylesheet">
 </head>

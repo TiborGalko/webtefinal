@@ -19,7 +19,9 @@
 <form action="../scripts/upload.php" method="post" enctype="multipart/form-data">
     <label for="delim">Oddeľovač: </label>
     <input id="delim" type="text" name="delim">
-    Select image to upload:
+    <label for="riadok">Od riadka: </label>
+    <input id="riadok" type="number" name="riadok">
+    Select file to upload:
     <input type="file" name="file" id="file">
     <input type="submit" value="Upload" name="submit">
 </form>
