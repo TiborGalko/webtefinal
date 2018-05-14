@@ -1,0 +1,14 @@
+#map {
+    height: 500px;
+    width: auto;
+}
+
+.news-clickable {
+	color: blue;
+	cursor: pointer;
+}
+
+#news-back {
+	color: blue;
+	cursor: pointer;
+}
