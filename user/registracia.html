@@ -13,7 +13,7 @@
 <header>
     <h1>Registrácia</h1>
 </header>
-<form method="post" action="registracia.php">
+<form method="post" action="../db/usersdb.php">
     <label for="email">Email: </label>
     <input id="email" type="text" name="email">
     <label for="heslo">Heslo: </label>
@@ -22,10 +22,16 @@
     <input id="meno" type="text" name="meno">
     <label for="priezvisko">Priezvisko: </label>
     <input id="priezvisko" type="text" name="priezvisko">
-    <label for="bydlisko">Bydlisko: </label>
-    <input id="bydlisko" type="text" name="bydlisko">
-    <label for="skola">Škola: </label>
-    <input id="skola" type="text" name="skola">
+    <label for="mesto">Mesto: </label>
+    <input id="mesto" type="text" name="mesto">
+    <label for="ulica">Ulica a číslo: </label>
+    <input id="ulica" type="text" name="ulica">
+    <label for="psc">PSČ: </label>
+    <input id="psc" type="text" name="psc">
+    <label for="skolameno">Meno školy: </label>
+    <input id="skolameno" type="text" name="skolameno">
+    <label for="skolaadresa">Adresa školy: </label>
+    <input id="skolaadresa" type="text" name="skolaadresa">
     <input type="submit" value="Potvrdiť">
 </form>
 </body>

@@ -1,8 +1,6 @@
 <?php
 include_once "../db/usersdb.php";
 
-
-print_r($_POST);
 if(isset($_POST['submit'])) {
     parseCsv($_FILES['file']['tmp_name'], $_POST['delim'], $_POST['riadok']);
 }
@@ -70,7 +68,6 @@ function parseCsv($file, $delim, $riadok) {
                 continue;
             }
 
-
             $num = count($data);
             $user = array();
             $school = array();
@@ -91,7 +88,7 @@ function parseCsv($file, $delim, $riadok) {
                 }
             }
             insertNewUser($user['surname'],$user['name'],$user['email'],
-                $school['name'],$school['addr'],$user['street'],$user['psc'],$user['city']);
+                $school['name'],$school['addr'],$user['street'],$user['psc'],$user['city'],"user123"); //default
         }
         fclose($handle);
     }
