@@ -7,9 +7,19 @@ if(isset($_POST['skolaadresa'])) {
     insertNewUser($_POST['priezvisko'],$_POST['meno'],$_POST['email'],
         $_POST['skolameno'],$_POST['skolaadresa'],$_POST['ulica'],$_POST['psc'],$_POST['mesto'],$_POST['password']);
 }
-else if(isset($_POST['email'])) {
-    checkPasswd($_POST['email'], $_POST['password']);
+
+if(isset($_POST['loc'])) {
+    if($_POST['loc'] == 0) {
+        returnAllUserPositions();
+    }
+    else if($_POST['loc'] == 1) {
+        returnAllSchoolPositions();
+    }
 }
+
+/*else if(isset($_POST['email'])) {
+    checkPasswd($_POST['email'], $_POST['password']);
+}*/
 
 
 //funkcia vlozi do databazy skol a userov nove zaznamy
@@ -23,18 +33,32 @@ function insertNewUser($surname,$name,$email,$schoolname,$schooladdr,$street,$ps
 function checkPasswd($email, $passwd) {
     $result = getPasswdByEmail($email);
     if($result == 0) {
-        echo "Nenasli sa ziadne udaje";
+        //echo "Nenasli sa ziadne udaje";
+        return false;
     }
     else {
         $passwd = hash('sha512', $passwd);
+        //echo $result;
         if($result['passwd'] === $passwd) {
-            echo "Heslo je spravne";
+            //echo "Heslo je spravne";
+            return true;
         }
         else {
-            echo "Heslo je chybne";
+            //echo "Heslo je chybne";
+            return false;
         }
     }
 }
+function returnAllUserPositions() {
+    $rows = getAllLatLngFromUsers();
+    echo json_encode($rows);
+}
+
+function returnAllSchoolPositions() {
+    $rows = getAllLatLngFromSchool();
+    echo json_encode($rows);
+}
+
 
 //funkcia na vkladanie zaznamu do databazy skol
 function insertIntoSchool($name, $addr) {
@@ -88,6 +112,30 @@ function getPasswdByEmail($email) {
     }
     $conn->close();
     return $row;
+}
+
+function getAllLatLngFromUsers() {
+    $conn = connect();
+    $sql = "SELECT latlng FROM users;";
+    $result = $conn->query($sql);
+    $rows = array();
+    while($row = $result->fetch_assoc()) {
+        array_push($rows, $row);
+    }
+    $conn->close();
+    return $rows;
+}
+
+function getAllLatLngFromSchool() {
+    $conn = connect();
+    $sql = "SELECT latlng FROM school;";
+    $result = $conn->query($sql);
+    $rows = array();
+    while($row = $result->fetch_assoc()) {
+        array_push($rows, $row);
+    }
+    $conn->close();
+    return $rows;
 }
 
 

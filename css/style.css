@@ -2,7 +2,10 @@
     height: 500px;
     width: auto;
 }
-
+#mapaTras {
+    height: 500px;
+    width: auto;
+}
 .news-clickable {
 	color: blue;
 	cursor: pointer;
@@ -11,4 +14,10 @@
 #news-back {
 	color: blue;
 	cursor: pointer;
+}
+nav {
+    padding: 10px;
+}
+.jumbotron {
+    margin-bottom: 5px;
 }

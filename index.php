@@ -11,89 +11,85 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpnArBmSGhkTmYTQRXiDZMi9h6xj1LwHA"></script>
-
-    <!-- news script -->
-    <script src="news/news-script.js"></script>
-    <script src="libs/jquery.redirect-master/jquery.redirect.js"></script>
-
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link href="css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<header>
+<header class="jumbotron">
     <h1>Úvodná stránka</h1>
 </header>
-<div>
-<label for="sel">Výber zobrazenia: </label>
-<select id="sel">
-    <option>Miesta</option>
-    <option>Školy</option>
-</select>
-<input type="button" value="Zobraziť">
-</div>
-<div id="map"></div>
+<div class="container">
+    <div class="container">
+        <label for="sel">Výber zobrazenia: </label>
+        <select id="sel">
+            <option>Miesta</option>
+            <option>Školy</option>
+        </select>
+        <input type="button" value="Zobraziť" class="btn btn-primary" onclick="showMarkers()">
+    </div>
+    <div id="map"></div>
 
 
-<a href="user/prihlasenie.html">Prihlásiť sa</a>
-<a href="user/registracia.html">Registrovať sa</a>
+    <a href="user/prihlasenie.html">Prihlásiť sa</a>
+    <a href="user/registracia.html">Registrovať sa</a>
 
 
-<script>
-    let map;
+    <script>
+        let map;
+        let markers = [];
 
-    //event listener na nacitanie mapy po skonceni nacitania
-    google.maps.event.addDomListener(window, 'load', init);
+        //event listener na nacitanie mapy po skonceni nacitania
+        google.maps.event.addDomListener(window, 'load', init);
 
-    function init() {
-        initMap();
-    }
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
-            center: {lat: 48.669026, lng: 19.69902400000001}
-        });
-    }
-</script>
-
-
-<!-- news -->
-<!-- vytvara elemnty s ID 1,2,... kvoli tomu aby sa dalo dobre selectovat z DB, prosim taketo idcka nepouzivajte -->
-<h2>Aktuality</h2>
-<?php
-    
-    include "config.php";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
-
-    $sql = "SELECT * FROM news ORDER BY created DESC LIMIT 3";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-
-            $text = $row["text"];
-
-            if(strlen($text) > 150){
-                $text = substr($text, 0, 150);
-                $text .= "...";
-            }
-            echo "<b>".$row["title"]."</b><br>".$text."<span id=".$row["id"]." class='news-clickable'> citaj dalej</span><br>".$row["id_autor"]."<br>".$row["created"]."<br>--------------------------------<br>";
+        function init() {
+            initMap();
         }
-        echo "<a href='news/news-all.php'>Zobrazit vsetky novinky</a>";
-    } else {
-        echo "Ziadne novinky";
-    }
 
-    $conn->close();
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: {lat: 48.669026, lng: 19.69902400000001}
+            });
+        }
 
-?>
+        //zobrazenie markerov na mape na uvodnej stranke
+        function showMarkers() {
+            let select = document.getElementById("sel");
 
+            $.ajax({
+                url: "db/usersdb.php",
+                type: "post",
+                data: {"loc": select.selectedIndex},
+                success: function (response) {
+                    clearMarkers();
+                    markers.length = 0;
+                    let r = JSON.parse(response);
+                    for (let i = 0; i < r.length; i++) {
+                        let loc = r[i].latlng.split(","); //rozdelenie stringu na lat a lng
+                        //pridanie markeru
+                        let marker = new google.maps.Marker({
+                            position: new google.maps.LatLng({lat: parseFloat(loc[0]), lng: parseFloat(loc[1])}),
+                            map: map
+                        });
+
+                        markers.push(marker);
+                    }
+                }
+            });
+        }
+
+        //vymazanie markerov na mape
+        function clearMarkers() {
+            for (let i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+        }
+    </script>
+</div>
 </body>
 </html>
 

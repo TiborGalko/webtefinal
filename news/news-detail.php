@@ -16,16 +16,12 @@
 
 	<?php
 
-	include "../config.php";
+	include_once "../db/db.php";
 
 	$id = $_POST['postid'];
 
 	// Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
+    $conn = connect();
 
     $sql = "SELECT * FROM news WHERE id='$id'";
     $result = $conn->query($sql);
