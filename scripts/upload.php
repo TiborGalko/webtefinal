@@ -1,5 +1,5 @@
 <?php
-include_once "../db/usersdb.php";
+include_once "../user/registracia.php";
 
 if(isset($_POST['submit'])) {
     parseCsv($_FILES['file']['tmp_name'], $_POST['delim'], $_POST['riadok']);

@@ -1,3 +1,16 @@
+<?php
+    
+    session_start();
+
+    if(!isset($_SESSION['user_login'])){
+        header("Location: ../index.php");
+    }
+
+    if(strcmp($_SESSION['user_type'], "admin") != 0){
+        header("Location: ../index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -29,13 +42,13 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Trasy</a>
+            <a class="nav-link active" href="vykony.php">Výkony</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#">Nastavenia</a>
+            <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#">Odhlásiť sa</a>
+            <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
         </li>
     </ul>
 </nav>
@@ -71,26 +84,9 @@
         <?php
 
         include_once "../db/usersdb.php";
-        include_once "../db/db.php";
-
-        $email = $_POST['email'];
-        $pwd = $_POST['password'];
-
-        if (isset($email) && isset($pwd)) {
-            if (checkPasswd($email, $pwd)) {
-                echo "uspesne prihlasenie";
-                session_start();
-                $_SESSION['user_login'] = $email;
-
-            } else {
-                echo "neuspesne prihlasenie";
-            }
-        } else {
-            session_start();
-        }
+        include_once "../db/db.php";   
 
         // ZOBRAZOVANIE AKTUALIT
-        if (isset($_SESSION['user_login'])) {
 
             echo "<h2>Aktuality</h2>";
 
@@ -117,7 +113,6 @@
             }
 
             $conn->close();
-        }
 
         ?>
     </aside>

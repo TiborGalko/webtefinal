@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <a href="../user/index.php">Domov</a><br>
+    <a href="javascript:history.back()">Domov</a><br>
 
 	<?php
 
