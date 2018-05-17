@@ -32,7 +32,9 @@ if(isset($_POST['loc'])) {
 function insertNewUser($surname,$name,$email,$schoolname,$schooladdr,$street,$psc,$city,$passwd) {
     $id_school = insertIntoSchool($schoolname,$schooladdr);
     insertIntoUsers($id_school, $surname, $name, $email, $passwd,$street, $psc, $city);
-    header("Location: index.php");
+    echo '<script type="text/javascript">
+           window.location = "index.php"
+      </script>';
 }
 
 //funkcia skontroluje ci je heslo spravne

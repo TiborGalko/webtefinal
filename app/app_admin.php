@@ -47,7 +47,10 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="vykony.php">Výkony</a>
+            <a class="nav-link active" href="app_admin.php">Aplikácia</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="vykony_admin.php">Výkony</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>

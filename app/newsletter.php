@@ -47,10 +47,7 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="vykony.php">Výkony</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
+            <a class="nav-link active" href="vykony_user.php">Výkony</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="newsletter.php">Newsletter</a>
@@ -65,7 +62,7 @@
         <form method="post" action="app_newsletter.php">
             <div class="form-group">
                 <label for="subscribe">odoberať alebo zrušiť  </label>
-                <select id="newsletter" class="form-control" name="newsletter">
+                <select id="subscribe" class="form-control" name="newsletter">
                     <option value="1">odoberať</option>
                     <option value="0">zrušiť</option>
                 </select>

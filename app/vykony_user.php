@@ -31,7 +31,13 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="vykony.php">Výkony</a>
+            <a class="nav-link active" href="app_user.php">Aplikácia</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="vykony_user.php">Výkony</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="newsletter.php">Newsletter</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
