@@ -1,8 +1,6 @@
 <?php
-include_once "../db/usersdb.php";
+include_once "../user/registracia.php";
 
-
-print_r($_POST);
 if(isset($_POST['submit'])) {
     parseCsv($_FILES['file']['tmp_name'], $_POST['delim'], $_POST['riadok']);
 }
@@ -66,15 +64,17 @@ function parseCsv($file, $delim, $riadok) {
         $row = 1;
         while (($data = fgetcsv($handle, 1000, $delim)) !== FALSE) {
             if($row < $riadok) {
+                $row++;
                 continue;
             }
-            $row++;
 
             $num = count($data);
             $user = array();
             $school = array();
             for ($c = 0; $c < $num; $c++) {
-                $d = str_replace (array("\r\n", "\n", "\r"), ' ', w1250_to_utf8($data[$c]));
+                $d = str_replace (array("\r\n", "\n", "\r", "\n\r"), ' ', w1250_to_utf8($data[$c]));
+                $d = str_replace("'", '', $d);
+                $d = trim($d);
                 switch ($c) {
                     case 0: $user['id'] = $d; break;
                     case 1: $user['surname'] = $d; break;
@@ -88,7 +88,7 @@ function parseCsv($file, $delim, $riadok) {
                 }
             }
             insertNewUser($user['surname'],$user['name'],$user['email'],
-                $school['name'],$school['addr'],$user['street'],$user['psc'],$user['city']);
+                $school['name'],$school['addr'],$user['street'],$user['psc'],$user['city'],"user123"); //default
         }
         fclose($handle);
     }

@@ -13,18 +13,14 @@
 </head>
 <body>
 
-    <a href="../index.php">Domov</a><br>
+    <a href="javascript:history.back()">Domov</a><br>
 
 	<?php
 
-	include "../config.php";
+	include_once "../db/db.php";
 
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
+    $conn = connect();
 
     $sql = "SELECT * FROM news ORDER BY created DESC";
     $result = $conn->query($sql);

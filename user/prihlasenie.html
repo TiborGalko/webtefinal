@@ -7,20 +7,34 @@
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link href="../css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<header>
+<header class="jumbotron">
     <h1>Prihlásenie</h1>
+    <a href="../index.php">Späť na úvodnú stránku</a>
 </header>
-<form method="post" action="prihlasenie.php">
-    <label for="email">Email: </label>
-    <input id="email" type="text" name="email">
-    <label for="heslo">Heslo: </label>
-    <input id="heslo" type="password" name="password">
-    <input type="submit" value="Potvrdiť">
-</form>
-
+<div class="container">
+    <div class="col-lg-6 col-lg-offset-2">
+    <form method="post" action="../app/index.php">
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input id="email" type="text" class="form-control" name="email">
+        </div>
+        <div class="form-group">
+            <label for="heslo">Heslo: </label>
+            <input id="heslo" type="password" class="form-control" name="password">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Potvrdiť">
+    </form>
+        <a href="registracia.html">Nemáte účet ? Registrujte sa</a>
+    </div>
+</div>
 </body>
 </html>
 
