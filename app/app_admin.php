@@ -1,5 +1,8 @@
 <?php
-    
+
+    include_once "../db/usersdb.php";
+    include_once "../db/db.php";  
+
     session_start();
 
     if(!isset($_SESSION['user_login'])){
@@ -33,6 +36,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
+    <script src="add_trace.js"></script>
+
     <link href="../css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -55,6 +60,39 @@
 <div class="container">
     <div id="mapaTras"></div>
 
+     <!--         Pridavanie trasy           -->
+
+    <div id="alert-success" class="alert alert-success alert-dismissible">
+         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>OK!</strong> Trasa bola uspesne pridana.
+    </div>
+
+    <div id="alert-fail" class="alert alert-danger alert-dismissible">
+         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Hups!</strong> Pri pridavani trasy nastala chyba. Skuste to znova prosim.
+    </div>
+
+    <input id="show_button" type="button" class="btn btn-primary" value="Pridat trasu">
+
+    <div id="add_form">
+    <h2>Pridanie trasy</h2>
+    <img id="close_icon" src="../img/close_icon.png" height="25" width="25">
+    <form>
+        <div class="form-group">
+            <label for="from">Odkial </label>
+            <input id="from" type="text" class="form-control" name="from">
+        </div>
+        <div class="form-group">
+            <label for="to">Kam </label>
+            <input id="to" type="text" class="form-control" name="to">
+        </div>
+        <input id="add_button" type="button" class="btn btn-primary" value="Pridat">
+    </form>
+    </div>
+
+
+    <!--            TABULKA     TRAS            -->
+
     <div>
     <label for="filterTras">Filtrovanie trás</label>
         <select id="filterTras">
@@ -64,7 +102,7 @@
     <header>
         <h2>Tabuľka trás</h2>
     </header>
-    <table class="table">
+    <table class="table" id="traces_table">
         <thead>
         <tr>
             <th>Odkiaľ</th>
@@ -73,6 +111,7 @@
             <th>Mód</th>
             <th>Uživateľ</th>
         </tr>
+        <?php getAllTraces();  ?>
         </thead>
         <tbody>
         </tbody>
@@ -81,10 +120,7 @@
 
 
     <aside>
-        <?php
-
-        include_once "../db/usersdb.php";
-        include_once "../db/db.php";   
+        <?php        
 
         // ZOBRAZOVANIE AKTUALIT
 

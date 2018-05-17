@@ -53,6 +53,9 @@
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link active" href="newsletter.php">Newsletter</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
         </li>
     </ul>
@@ -158,7 +161,7 @@
             <th>Aktívna/Neaktívna</th>
             <th>Mód</th>
         </tr>
-        <?php getAllTraces();  ?>
+        <?php //getAllTraces();  ?>
         </thead>
         <tbody>
         </tbody>

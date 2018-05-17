@@ -36,3 +36,11 @@ nav {
 #close_icon:hover {
     opacity: .8;
 }
+
+#alert-success {
+    display: none;
+}
+
+#alert-fail {
+    display: none;
+}

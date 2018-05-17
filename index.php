@@ -1,5 +1,11 @@
 <?php
-
+    session_start();
+    if(isset($_SESSION['user_login']) && ($_SESSION['user_type'] == 'user')) {
+        header("Location: app/app_user.php");
+    }
+    else if(isset($_SESSION['user_login']) && ($_SESSION['user_type'] == 'admin')) {
+        header("Location: app/app_admin.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="sk">

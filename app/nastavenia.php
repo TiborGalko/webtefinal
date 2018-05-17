@@ -33,7 +33,7 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="app_admin.php">Aplikácia</a>
+            <a class="nav-link active" href="app_user.php">Aplikácia</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="vykony.php">Výkony</a>

@@ -32,6 +32,7 @@ if(isset($_POST['loc'])) {
 function insertNewUser($surname,$name,$email,$schoolname,$schooladdr,$street,$psc,$city,$passwd) {
     $id_school = insertIntoSchool($schoolname,$schooladdr);
     insertIntoUsers($id_school, $surname, $name, $email, $passwd,$street, $psc, $city);
+    header("Location: index.php");
 }
 
 //funkcia skontroluje ci je heslo spravne
@@ -73,6 +74,7 @@ function insertIntoSchool($name, $addr) {
         $loc = $j->results[0]->geometry->location;
         $latlng = $loc->lat . "," . $loc->lng;
     }
+    $last_id = 0;
     $conn = connect();
     $sql = "INSERT INTO school(name,address,latlng) ".
         "VALUES('".$name."','".$addr."','".$latlng."');";
@@ -101,7 +103,7 @@ function insertIntoUsers($id_school, $surname, $name, $email, $passwd, $street, 
     $status = 0;
     $conn = connect();
     $sql = "INSERT INTO users(id_school,name,surname,city,street,psc,email,passwd,role,latlng) ".
-        "VALUES(".$id_school.",'".$name."','".$surname."','".$city."','".$street."','".$psc."','".$email."','".$passwd."','".$role."','".$latlng."');";
+        "VALUES('".$id_school."','".$name."','".$surname."','".$city."','".$street."','".$psc."','".$email."','".$passwd."','".$role."','".$latlng."');";
     if ($conn->query($sql) === TRUE) {
         $last_id = $conn->insert_id;
         echo "New record created successfully. Last inserted ID is: " . $last_id . "<br>";
@@ -109,11 +111,15 @@ function insertIntoUsers($id_school, $surname, $name, $email, $passwd, $street, 
         "VALUES('".$last_id."','".$hash."','".$status."');";
         $conn->query($sql);
         sendVerificationEmail($email,$hash,$last_id);
+
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error . "<br>";
+        $conn->close();
+        return false;
     }
 
     $conn->close();
+    return true;
 }
 
 function getPasswdByEmail($email) {
