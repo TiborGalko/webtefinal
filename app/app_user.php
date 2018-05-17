@@ -29,7 +29,11 @@
     <!-- news script -->
     <script src="../news/news-script.js"></script>
     <script src="../libs/jquery.redirect-master/jquery.redirect.js"></script>
+<<<<<<< HEAD
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpnArBmSGhkTmYTQRXiDZMi9h6xj1LwHA"></script>
+=======
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpnArBmSGhkTmYTQRXiDZMi9h6xj1LwHA&libraries=places"></script>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
@@ -58,7 +62,61 @@
     </ul>
 </nav>
 <div class="container">
+<<<<<<< HEAD
 
+=======
+    <div>
+        <form method="post" action="../db/vykonydb.php">
+            <div class="form-group">
+                <label for="kilometre">Počet kilometrov: </label>
+                <input id="kilometre" type="text" class="form-control" name="kilometre" required>
+            </div>
+            <div class="form-group">
+                <label for="den">Deň: </label>
+                <select id="den" class="form-control" name="den">
+                    <option value="pon">Pondelok</option>
+                    <option value="ut">Utorok</option>
+                    <option value="str">Streda</option>
+                    <option value="stv">Štvrtok</option>
+                    <option value="pi">Piatok</option>
+                    <option value="so">Sobota</option>
+                    <option value="ne">Nedeľa</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="casStart">Čas začiatku: </label>
+                <input id="casStart" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" name="casStart" title="Formát HH:MM">
+            </div>
+            <div class="form-group">
+                <label for="casKoniec">Čas konca: </label>
+                <input id="casKoniec" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" name="casKoniec" title="Formát HH:MM">
+            </div>
+            <div class="form-group">
+                <label for="miestoStart">Miesto štartu: </label>
+                <input id="miestoStart" type="text" class="form-control" name="miestoStart">
+            </div>
+            <div class="form-group">
+                <label for="miestoCiel">Miesto cieľa: </label>
+                <input id="miestoCiel" type="text" class="form-control" name="miestoCiel">
+            </div>
+            <div class="form-group">
+                <label for="hodnotenie">Hodnotenie: </label>
+                <select id="hodnotenie" class="form-control" name="hodnotenie">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="poznamka">Poznámka: </label>
+                <textarea id="poznamka" rows="5" cols="20" class="form-control" name="skolameno" placeholder="Popíšte svoj tréning" maxlength="150"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Uložiť">
+        </form>
+    </div>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
 
     <div id="mapaTras"></div>
 
@@ -152,6 +210,18 @@
     <script>
         let mapaTras;
 
+<<<<<<< HEAD
+=======
+        let start = document.getElementById('miestoStart');
+        let ciel = document.getElementById('miestoCiel');
+        let options = {
+            types: ['establishment']
+        };
+
+        autocomplete1 = new google.maps.places.Autocomplete(start, options);
+        autocomplete2 = new google.maps.places.Autocomplete(ciel, options);
+
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
         //event listener na nacitanie mapy po skonceni nacitania
         google.maps.event.addDomListener(window, 'load', init);
 
@@ -165,6 +235,11 @@
             });
         }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     </script>
 </div>
 </body>

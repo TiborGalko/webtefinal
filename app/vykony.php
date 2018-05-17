@@ -34,15 +34,45 @@
             <a class="nav-link active" href="vykony.php">Výkony</a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="#">Odhlásiť sa</a>
+=======
+            <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
         </li>
     </ul>
 </nav>
 <div class="container">
+<<<<<<< HEAD
 
+=======
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Počet kilometrov</th>
+                <th>Deň</th>
+                <th>Začiatok tréningu</th>
+                <th>Koniec tréningu</th>
+                <th>GPS štart</th>
+                <th>GPS cieľ</th>
+                <th>Hodnotenie</th>
+                <th>Poznámka</th>
+                <th>Priemerná rýchlosť</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+
+        ?>
+        </tbody>
+    </table>
+    <p>
+        Priemerný počet kilometrov na jeden tréning je <span id="priemer"></span>
+    </p>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
 </div>
 </body>
 </html>

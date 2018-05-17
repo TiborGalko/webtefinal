@@ -1,8 +1,12 @@
 <?php
+<<<<<<< HEAD
 
     include_once "../db/usersdb.php";
     include_once "../db/db.php";  
 
+=======
+    
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     session_start();
 
     if(!isset($_SESSION['user_login'])){
@@ -36,8 +40,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
+<<<<<<< HEAD
     <script src="add_trace.js"></script>
 
+=======
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     <link href="../css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -60,6 +67,7 @@
 <div class="container">
     <div id="mapaTras"></div>
 
+<<<<<<< HEAD
      <!--         Pridavanie trasy           -->
 
     <div id="alert-success" class="alert alert-success alert-dismissible">
@@ -93,6 +101,8 @@
 
     <!--            TABULKA     TRAS            -->
 
+=======
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     <div>
     <label for="filterTras">Filtrovanie trás</label>
         <select id="filterTras">
@@ -102,7 +112,11 @@
     <header>
         <h2>Tabuľka trás</h2>
     </header>
+<<<<<<< HEAD
     <table class="table" id="traces_table">
+=======
+    <table class="table">
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
         <thead>
         <tr>
             <th>Odkiaľ</th>
@@ -111,7 +125,10 @@
             <th>Mód</th>
             <th>Uživateľ</th>
         </tr>
+<<<<<<< HEAD
         <?php getAllTraces();  ?>
+=======
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
         </thead>
         <tbody>
         </tbody>
@@ -120,7 +137,14 @@
 
 
     <aside>
+<<<<<<< HEAD
         <?php        
+=======
+        <?php
+
+        include_once "../db/usersdb.php";
+        include_once "../db/db.php";   
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
 
         // ZOBRAZOVANIE AKTUALIT
 

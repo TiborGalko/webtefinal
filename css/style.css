@@ -35,6 +35,7 @@ nav {
 
 #close_icon:hover {
     opacity: .8;
+<<<<<<< HEAD
 }
 
 #alert-success {
@@ -43,4 +44,6 @@ nav {
 
 #alert-fail {
     display: none;
+=======
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
 }
