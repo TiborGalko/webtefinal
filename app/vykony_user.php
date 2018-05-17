@@ -1,4 +1,7 @@
 <?php
+    include_once "../db/vykonydb.php";
+
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -60,12 +63,17 @@
             </tr>
         </thead>
         <tbody>
-
+        <?php
+            $rows = getVykonyByUserIdSorted($_SESSION['user_id']);
+            echo $rows;
+        ?>
         </tbody>
     </table>
     <p>
-        Priemerný počet kilometrov na jeden tréning je <span id="priemer"></span>
+        Priemerný počet kilometrov na jeden tréning je <?php echo getPriemernuVzdialenostByUserId($_SESSION['user_id']); ?>
     </p>
+
+    <a href="../scripts/create_pdf.php">Stiahnuť ako PDF</a>
 </div>
 </body>
 </html>

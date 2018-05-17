@@ -81,11 +81,11 @@
             </div>
             <div class="form-group">
                 <label for="casStart">Čas začiatku: </label>
-                <input id="casStart" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" name="casStart" title="Formát HH:MM">
+                <input id="casStart" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" name="casStart" title="Formát HH:MM">
             </div>
             <div class="form-group">
                 <label for="casKoniec">Čas konca: </label>
-                <input id="casKoniec" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" name="casKoniec" title="Formát HH:MM">
+                <input id="casKoniec" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" name="casKoniec" title="Formát HH:MM">
             </div>
             <div class="form-group">
                 <label for="miestoStart">Miesto štartu: </label>
@@ -107,7 +107,7 @@
             </div>
             <div class="form-group">
                 <label for="poznamka">Poznámka: </label>
-                <textarea id="poznamka" rows="5" cols="20" class="form-control" name="skolameno" placeholder="Popíšte svoj tréning" maxlength="150"></textarea>
+                <textarea id="poznamka" rows="5" cols="20" class="form-control" name="poznamka" placeholder="Popíšte svoj tréning" maxlength="150"></textarea>
             </div>
             <input type="submit" class="btn btn-primary" value="Uložiť">
         </form>

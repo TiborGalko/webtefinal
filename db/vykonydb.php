@@ -12,24 +12,22 @@ if(isset($_POST['kilometre'])) {
 
 //funkcia na nastavenie premennych pre vkladanie vykonu
 function vytvoritVykon($km) {
-    $latlngStart = "";
-    $latlngCiel = "";
-    $casStartu = "";
-    $casKonca = "";
-    $rychlost = "";
-    $hodnotenie = "";
-    $poznamka = "";
-    $den = "";
+    $latlngStart = "NULL";
+    $latlngCiel = "NULL";
+    $casStartu = "0";
+    $casKonca = "0";
+    $rychlost = "0";
+    $hodnotenie = "NULL";
+    $poznamka = "NULL";
+    $den = "NULL";
     $user_id = $_SESSION['user_id'];
 
-    print_r($_POST['miestoStart']);
     if(empty($_POST['miestoStart'])) {
         $j = getLatLngFromAddr($_POST['miestoStart']);
         if(!empty($j->results)) {
             $loc = $j->results[0]->geometry->location;
             $latlngStart = $loc->lat.",".$loc->lng;
         }
-
     }
     if(!empty($_POST['miestoCiel'])) {
         $j = getLatLngFromAddr($_POST['miestoCiel']);
@@ -43,8 +41,11 @@ function vytvoritVykon($km) {
         $casStartu = $_POST['casStart'];
         $casKonca = $_POST['casKoniec'];
 
-        //v = s/t, km/h
-        $rychlost = $km / ((strtotime($casKonca) - strtotime($casStartu)) / 3600);
+        $t = (strtotime($casKonca) - strtotime($casStartu)) / 3600;
+        if($t != 0) {
+            //v = s/t, km/h
+            $rychlost = $km / $t;
+        }
     }
     if(!empty($_POST['hodnotenie'])) {
         $hodnotenie = $_POST['hodnotenie'];
@@ -56,35 +57,33 @@ function vytvoritVykon($km) {
         $den = $_POST['den'];
     }
     insertIntoVykony($km,$user_id,$den,$casStartu,$casKonca,$latlngStart,$latlngCiel,$hodnotenie,$poznamka,$rychlost);
+    //header("Location: ../app/app_user.php");
 }
 
 //vkladanie do tabulky vykonov
 function insertIntoVykony($km, $user_id, $den, $casStart, $casKoniec, $miestoStart, $miestoCiel, $hodnotenie, $poznamka, $rychlost) {
     $conn = connect();
-    echo "ok";
-
     $sql = "INSERT INTO vykony(user_id, kilometre, den, cas_start, cas_finish, latlng_start, latlng_finish, hodnotenie, poznamka, rychlost) ".
-        "VALUES(".$user_id.",".$km.",'".$den."',".$casStart.",".$casKoniec.",'".$miestoStart."','".$miestoCiel."','".$hodnotenie."','".$poznamka."',".$rychlost.")";
-    echo "ok";
+        "VALUES(".$user_id.",".$km.",'".$den."','".$casStart."','".$casKoniec."','".$miestoStart."','".$miestoCiel."','".$hodnotenie."','".$poznamka."',".$rychlost.")";
     if ($conn->query($sql) === TRUE) {
         echo "Záznam úspešne zapísaný" . "<br>";
     } else {
         echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";
     }
-    echo "ok";
     $conn->close();
 }
 
-function getVykonyByUserId($user_id) {
+//vrati sortnutu tabulku vykonov
+function getVykonyByUserIdSorted($user_id, $sort = "id", $order = "asc") {
     $conn = connect();
 
-    $sql = "SELECT * FROM vykony WHERE user_id=".$user_id;
+    $sql = "SELECT * FROM vykony WHERE user_id=".$user_id . " ORDER BY " . $sort . " " . $order;
     $result = $conn->query($sql);
-
+    $output = "";
     if ($result->num_rows > 0) {
-        echo "<tr>";
         while($row = $result->fetch_assoc()) {
-            echo "<td>".$row['kilometre']."</td>" .
+            $output .= "<tr>";
+            $output .= "<td>".$row['kilometre']."</td>" .
                 "<td>".$row['den']."</td>" .
                 "<td>".$row['cas_start']."</td>" .
                 "<td>".$row['cas_finish']."</td>" .
@@ -93,12 +92,31 @@ function getVykonyByUserId($user_id) {
                 "<td>".$row['hodnotenie']."</td>" .
                 "<td>".$row['poznamka']."</td>" .
                 "<td>".$row['rychlost']."</td>";
+            $output .= "</tr>";
         }
-        echo "</tr>";
+
     }
     else {
         echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";
     }
-
     $conn->close();
+    return $output;
+}
+
+function getPriemernuVzdialenostByUserId($user_id) {
+    $priemer = 0;
+    $conn = connect();
+    $sql = "SELECT kilometre FROM vykony WHERE user_id=".$user_id;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $priemer += $row['kilometre'];
+        }
+        $priemer = $priemer / $result->num_rows; //vypocet priemeru
+    }
+    else {
+        echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";
+    }
+    $conn->close();
+    return $priemer;
 }
