@@ -45,7 +45,11 @@
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
+            <a class="nav-link active" href="#">Odhlásiť sa</a>
+=======
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
         </li>
     </ul>
 </nav>

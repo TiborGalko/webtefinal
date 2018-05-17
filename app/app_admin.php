@@ -1,7 +1,7 @@
 <?php
 
     include_once "../db/usersdb.php";
-    include_once "../db/db.php";  
+    include_once "../db/db.php";
 
     session_start();
 
@@ -126,7 +126,10 @@
 
 
     <aside>
-        <?php        
+        <?php
+
+        include_once "../db/usersdb.php";
+        include_once "../db/db.php";   
 
         // ZOBRAZOVANIE AKTUALIT
 

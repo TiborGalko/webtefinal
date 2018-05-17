@@ -29,7 +29,11 @@
     <!-- news script -->
     <script src="../news/news-script.js"></script>
     <script src="../libs/jquery.redirect-master/jquery.redirect.js"></script>
+<<<<<<< HEAD
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpnArBmSGhkTmYTQRXiDZMi9h6xj1LwHA"></script>
+=======
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpnArBmSGhkTmYTQRXiDZMi9h6xj1LwHA&libraries=places"></script>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
@@ -61,6 +65,9 @@
     </ul>
 </nav>
 <div class="container">
+<<<<<<< HEAD
+
+=======
     <div>
         <form method="post" action="../db/vykonydb.php">
             <div class="form-group">
@@ -112,6 +119,7 @@
             <input type="submit" class="btn btn-primary" value="Uložiť">
         </form>
     </div>
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
 
     <div id="mapaTras"></div>
 
@@ -205,6 +213,8 @@
     <script>
         let mapaTras;
 
+<<<<<<< HEAD
+=======
         let start = document.getElementById('miestoStart');
         let ciel = document.getElementById('miestoCiel');
         let options = {
@@ -214,6 +224,7 @@
         autocomplete1 = new google.maps.places.Autocomplete(start, options);
         autocomplete2 = new google.maps.places.Autocomplete(ciel, options);
 
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
         //event listener na nacitanie mapy po skonceni nacitania
         google.maps.event.addDomListener(window, 'load', init);
 
@@ -227,8 +238,11 @@
             });
         }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 9428a4befc2f856c07a6793230f30a76d759a911
     </script>
 </div>
 </body>
