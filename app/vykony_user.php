@@ -48,18 +48,20 @@
     </ul>
 </nav>
 <div class="container">
-    <table class="table">
+    <input type="hidden" id="tabOrder" value="asc">
+    <input type="hidden" id="tabColumn" value="id">
+    <table id="tabVykonov" class="table">
         <thead>
             <tr>
-                <th>Počet kilometrov</th>
-                <th>Deň</th>
-                <th>Začiatok tréningu</th>
-                <th>Koniec tréningu</th>
-                <th>GPS štart</th>
-                <th>GPS cieľ</th>
-                <th>Hodnotenie</th>
-                <th>Poznámka</th>
-                <th>Priemerná rýchlosť</th>
+                <th onclick="sort('kilometre')">Počet kilometrov</th>
+                <th onclick="sort('den')">Deň</th>
+                <th onclick="sort('cas_start')">Začiatok tréningu</th>
+                <th onclick="sort('cas_finish')">Koniec tréningu</th>
+                <th onclick="sort('latlng_start')">GPS štart</th>
+                <th onclick="sort('latlng_finish')">GPS cieľ</th>
+                <th onclick="sort('hodnotenie')">Hodnotenie</th>
+                <th onclick="sort('poznamka')">Poznámka</th>
+                <th onclick="sort('rychlost')">Priemerná rýchlosť</th>
             </tr>
         </thead>
         <tbody>
@@ -73,7 +75,30 @@
         Priemerný počet kilometrov na jeden tréning je <?php echo getPriemernuVzdialenostByUserId($_SESSION['user_id']); ?>
     </p>
 
-    <a href="../scripts/create_pdf.php">Stiahnuť ako PDF</a>
+    <a href="../scripts/create_pdf.php?col=">Stiahnuť ako PDF</a>
 </div>
+<script>
+    function sort(columnName) {
+        let order = $("#tabOrder").val();
+        console.log("colname " + columnName + " order " + order);
+        $.ajax({
+            url: "../db/vykonydb.php",
+            type: "post",
+            data: {columnName: columnName, order: order},
+            success: function (response) {
+                let mainTable = $("#tabVykonov");
+                mainTable.find("tr:gt(0)").remove();
+                mainTable.append(response);
+
+                let order = $("#tabOrder");
+                if(order.val() === "asc") {
+                    order.val("desc");
+                }
+                else order.val("asc");
+                $("#tabColumn").val(columnName);
+            }
+        });
+    }
+</script>
 </body>
 </html>

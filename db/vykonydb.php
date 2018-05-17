@@ -10,6 +10,16 @@ if(isset($_POST['kilometre'])) {
     }
 }
 
+if(isset($_POST['columnName'])) {
+    $columnName = $_POST['columnName'];
+    $order = $_POST['order'];
+    if(isset($_SESSION['user_id'])) {
+        $result = getVykonyByUserIdSorted($_SESSION['user_id'],$columnName,$order);
+        echo $result;
+    }
+
+}
+
 //funkcia na nastavenie premennych pre vkladanie vykonu
 function vytvoritVykon($km) {
     $latlngStart = "NULL";
@@ -57,7 +67,7 @@ function vytvoritVykon($km) {
         $den = $_POST['den'];
     }
     insertIntoVykony($km,$user_id,$den,$casStartu,$casKonca,$latlngStart,$latlngCiel,$hodnotenie,$poznamka,$rychlost);
-    //header("Location: ../app/app_user.php");
+    //header("Location: ../app/app_user.php"); TODO
 }
 
 //vkladanie do tabulky vykonov
@@ -94,7 +104,6 @@ function getVykonyByUserIdSorted($user_id, $sort = "id", $order = "asc") {
                 "<td>".$row['rychlost']."</td>";
             $output .= "</tr>";
         }
-
     }
     else {
         echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";

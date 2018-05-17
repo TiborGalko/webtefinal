@@ -63,7 +63,7 @@ function outputPdf($user_id)
         </tr>
     </thead>
     <tbody>' .
-        getVykonyAndPriemerByUserId($user_id) .
+        getVykonyByUserIdSorted($user_id) .
         '</tbody>
     </table>';
 
