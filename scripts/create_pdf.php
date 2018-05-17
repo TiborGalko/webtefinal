@@ -7,10 +7,15 @@ include_once "../db/vykonydb.php";
 session_start();
 
 if(isset($_SESSION['user_id'])) {
-    outputPdf($_SESSION['user_id']);
+    if(isset($_GET['col']) && isset($_GET['order'])) {
+        $col = $_GET['col'];
+        $order = $_GET['order'];
+        outputPdf($_SESSION['user_id'], $col, $order);
+    }
+
 }
 
-function outputPdf($user_id)
+function outputPdf($user_id, $col, $order)
 {
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -63,7 +68,7 @@ function outputPdf($user_id)
         </tr>
     </thead>
     <tbody>' .
-        getVykonyByUserIdSorted($user_id) .
+        getVykonyByUserIdSorted($user_id,$col,$order) .
         '</tbody>
     </table>';
 

@@ -74,8 +74,7 @@
     <p>
         Priemerný počet kilometrov na jeden tréning je <?php echo getPriemernuVzdialenostByUserId($_SESSION['user_id']); ?>
     </p>
-
-    <a href="../scripts/create_pdf.php?col=">Stiahnuť ako PDF</a>
+    <input type="button" value="Stiahnuť ako PDF" onclick="createPdf()">
 </div>
 <script>
     function sort(columnName) {
@@ -98,6 +97,17 @@
                 $("#tabColumn").val(columnName);
             }
         });
+    }
+
+    function createPdf() {
+        let order = $("#tabOrder");
+        let orderVal = order.val();
+        if(orderVal === "asc") {
+            orderVal = "desc";
+        }
+        else orderVal = "asc";
+        let col = $("#tabColumn").val();
+        window.location.href = "../scripts/create_pdf.php?col="+col+"&order="+orderVal;
     }
 </script>
 </body>
