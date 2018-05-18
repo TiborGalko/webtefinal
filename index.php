@@ -1,10 +1,13 @@
 <?php
     session_start();
-    if(isset($_SESSION['user_login']) && ($_SESSION['user_type'] == 'user')) {
-        header("Location: app/app_user.php");
-    }
-    else if(isset($_SESSION['user_login']) && ($_SESSION['user_type'] == 'admin')) {
-        header("Location: app/app_admin.php");
+    if(isset($_SESSION['active'])) {
+        if($_SESSION['active'] == 1) {
+            if (isset($_SESSION['user_login']) && ($_SESSION['user_type'] == 'user')) {
+                header("Location: app/app_user.php");
+            } else if (isset($_SESSION['user_login']) && ($_SESSION['user_type'] == 'admin')) {
+                header("Location: app/app_admin.php");
+            }
+        }
     }
 ?>
 <!DOCTYPE html>

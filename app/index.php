@@ -13,7 +13,7 @@
 
 	if(isset($email) && isset($pwd)){
 		if(checkPasswd($email,$pwd)){		
-			echo "uspesne prihlasenie";	
+			//echo "uspesne prihlasenie";
 			
 			$_SESSION['user_login'] = $email;
 			$_SESSION['user_type'] = getAccType($email)['role'];
@@ -29,16 +29,18 @@
 				if ($result->num_rows > 0) {
 					$row = $result->fetch_assoc();
 					if($row['active']==0){
-						header("Location: app_aktivuj_email.php");
+                        echo "<script>alert('Prihlásenie úspešné'); window.location.href = 'app_aktivuj_email.php'; </script>";
+						//header("Location: app_aktivuj_email.php");
 					}else{
-						header("Location: app_user.php");
+                        echo "<script>alert('Prihlásenie úspešné'); window.location.href = 'app_user.php'; </script>";
+						//header("Location: ");
 	    			}
-				
 	    		}
 			}
-
 		} else {
-			echo "neuspesne prihlasenie";
+			echo "<script>alert('Neuspesne prihlásenie'); window.location.href = '../user/prihlasenie.html'; </script>";
+
+            //header("Location: ../index.php");
 		}
 	} 
 }
