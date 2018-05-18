@@ -69,7 +69,7 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
         <div id="mapaTras"></div>
 
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
         </div>
 
         <input type="button" name="vykon" id="add_vykon" class="btn btn-primary" value="Pridat vykon">
@@ -282,6 +282,25 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
             }
             });
         }
+
+        function getDistance(){
+        var request = {
+            origin: {lat: startLat  , lng: startLng},
+            destination: {lat: stopLat, lng: stopLng},
+            travelMode: "WALKING"
+        };
+
+            directionsService.route(request, function(result, status){
+            if(status == "OK"){
+                return parseFloat(result.routes[0].legs[0].distance.text);
+            }
+            });
+        } 
+
+        function showProgress(){
+            var distance = getDistance();            
+        }       
+    
 
    </script>
    <script>/*

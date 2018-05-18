@@ -33,22 +33,22 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="app_admin.php">Aplikácia</a>
+            <a class="nav-link" href="app_admin.php">Aplikácia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="vykony_admin.php">Výkony</a>
+            <a class="nav-link" href="vykony_admin.php">Výkony</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="../news/news-add.php">Aktuality</a>
+            <a class="nav-link" href="../news/news-add.php">Aktuality</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
+            <a class="nav-link" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
+            <a class="nav-link" href="signout.php">Odhlásiť sa</a>
         </li>
     </ul>
 </nav>
@@ -59,11 +59,11 @@
     <div class="col-lg-6 col-lg-offset-2">
     <form action="../scripts/upload.php" method="post" enctype="multipart/form-data">
         <div class="form-row">
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="delim">Oddeľovač: </label>
             <input id="delim" type="text" class="form-control" name="delim">
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="riadok">Od riadka: </label>
             <input id="riadok" type="number" class="form-control" name="riadok">
         </div>
@@ -78,7 +78,7 @@
 
         Select file to upload:
         <input type="file" name="file" id="file">
-        <input type="submit" value="Upload" name="submit">
+        <input type="submit" class="btn btn-primary" value="Upload" name="submit">
     </form>
     </div>
 </div>

@@ -39,22 +39,22 @@ $userinfo = getAllUserInfoFromUsers();
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="app_admin.php">Aplikácia</a>
+            <a class="nav-link" href="app_admin.php">Aplikácia</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="vykony_admin.php">Výkony</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="../news/news-add.php">Aktuality</a>
+            <a class="nav-link" href="../news/news-add.php">Aktuality</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
+            <a class="nav-link" href="nastavenia.php">Nastavenia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
+            <a class="nav-link" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
+            <a class="nav-link" href="signout.php">Odhlásiť sa</a>
         </li>
     </ul>
 </nav>

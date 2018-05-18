@@ -21,47 +21,47 @@
 </header>
 <div class="container">
     <div class="col-lg-6">
-    <form method="post" action="../db/usersdb.php">
+    <form method="post" action="../db/usersdb.php" autocomplete="off">
         <div class="form-group">
             <label for="email">Email: </label>
-            <input id="email" type="text" class="form-control" name="email" required>
+            <input id="email" type="text" class="form-control" name="email" autocomplete="email" required>
         </div>
         <div class="form-group">
             <label for="heslo">Heslo: </label>
-            <input id="heslo" type="password" class="form-control" name="password" required>
+            <input id="heslo" type="password" class="form-control" name="password" autocomplete="new-password" required>
         </div>
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="meno">Meno: </label>
-            <input id="meno" type="text" class="form-control" name="meno" required>
+            <input id="meno" type="text" class="form-control" name="meno" autocomplete="name" required>
         </div>
         <div class="form-group col-md-6">
             <label for="priezvisko">Priezvisko: </label>
-            <input id="priezvisko" type="text" class="form-control" name="priezvisko" required>
+            <input id="priezvisko" type="text" class="form-control" name="priezvisko" autocomplete="family-name" required>
         </div>
         </div>
         <div class="form-group">
             <label for="ulica">Ulica a číslo: </label>
-            <input id="ulica" type="text" class="form-control" name="ulica" required>
+            <input id="ulica" type="text" class="form-control" name="ulica" autocomplete="street-address" required>
         </div>
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="mesto">Mesto: </label>
-            <input id="mesto" type="text" class="form-control" name="mesto" required>
+            <input id="mesto" type="text" class="form-control" name="mesto" autocomplete="address-level2" required>
         </div>
         <div class="form-group col-md-6">
             <label for="psc">PSČ: </label>
-            <input id="psc" type="text" class="form-control" name="psc" required>
+            <input id="psc" type="text" class="form-control" name="psc" autocomplete="postal-code" required>
         </div>
         </div>
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="skolameno">Meno školy: </label>
-            <input id="skolameno" type="text" class="form-control" name="skolameno" required>
+            <input id="skolameno" type="text" class="form-control" name="skolameno" autocomplete="off" required>
         </div>
         <div class="form-group col-md-6">
             <label for="skolaadresa">Adresa školy: </label>
-            <input id="skolaadresa" type="text" class="form-control" name="skolaadresa" required>
+            <input id="skolaadresa" type="text" class="form-control" name="skolaadresa" autocomplete="off" required>
         </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Potvrdiť">

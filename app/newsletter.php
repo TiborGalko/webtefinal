@@ -47,19 +47,19 @@
 <nav>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="app_user.php">Aplikácia</a>
+            <a class="nav-link" href="app_user.php">Aplikácia</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="vykony_user.php">Výkony</a>
+            <a class="nav-link" href="vykony_user.php">Výkony</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="newsletter.php">Newsletter</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
+            <a class="nav-link" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
+            <a class="nav-link" href="signout.php">Odhlásiť sa</a>
         </li>
     </ul>
 </nav>
