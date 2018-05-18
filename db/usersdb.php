@@ -57,6 +57,23 @@ function checkPasswd($email, $passwd) {
         }
     }
 }
+
+//funkcia pozrie ci neexistuje zaznam skoly ak ano vrati id
+function checkSchool($latlng) {
+    $conn = connect();
+    $sql = "SELECT id FROM school WHERE latlng='".$latlng ."'";
+
+    $result = $conn->query($sql);
+    $id = "";
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $id = $row['id'];
+        print_r($row);
+    }
+    $conn->close();
+    return $id;
+}
+
 function returnAllUserPositions() {
     $rows = getAllLatLngFromUsers();
     echo json_encode($rows);
@@ -75,6 +92,11 @@ function insertIntoSchool($name, $addr) {
     if(!empty($j->results)) {
         $loc = $j->results[0]->geometry->location;
         $latlng = $loc->lat . "," . $loc->lng;
+        $id = checkSchool($latlng);
+        echo $id;
+        if($id != "") {
+            return $id;
+        }
     }
     $last_id = 0;
     $conn = connect();

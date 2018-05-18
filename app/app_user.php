@@ -222,13 +222,18 @@
             initMap();
         }
         function initMap() {
-            map = new google.maps.Map(document.getElementById('mapaTras'), {
+            mapaTras = new google.maps.Map(document.getElementById('mapaTras'), {
                 zoom: 7,
                 center: {lat: 48.669026, lng: 19.69902400000001}
             });
+
+            google.maps.event.addListener(mapaTras, "click", function (e) {
+                //lat and lng is available in e object
+                let latLng = e.latLng;
+
+                console.log(latLng.lat() +"  "+ latLng.lng());
+            });
         }
-
-
 
     </script>
 </div>
