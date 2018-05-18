@@ -86,14 +86,16 @@ function vytvoritVykon($km) {
 //vkladanie do tabulky vykonov
 function insertIntoVykony($km, $user_id, $den, $casStart, $casKoniec, $miestoStart, $miestoCiel, $hodnotenie, $poznamka, $rychlost) {
     $conn = connect();
-    $sql = "INSERT INTO vykony(user_id, kilometre, den, cas_start, cas_finish, latlng_start, latlng_finish, hodnotenie, poznamka, rychlost) ".
-        "VALUES(".$user_id.",".$km.",'".$den."','".$casStart."','".$casKoniec."','".$miestoStart."','".$miestoCiel."','".$hodnotenie."','".$poznamka."',".$rychlost.")";
+    $sql = "INSERT INTO vykony(user_id, kilometre, den, cas_start, cas_finish, latlng_start, latlng_finish, hodnotenie, poznamka, rychlost, trace_id) ".
+        "VALUES(".$user_id.",".$km.",'".$den."','".$casStart."','".$casKoniec."','".$miestoStart."','".$miestoCiel."','".$hodnotenie."','".$poznamka."',".$rychlost.",'0')";
     if ($conn->query($sql) === TRUE) {
         //echo "Záznam úspešne zapísaný" . "<br>";
     } else {
         //echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
     }
+    changeToken1();
     $conn->close();
+    //echo $sql;
 }
 
 //vrati sortnutu tabulku vykonov
@@ -141,4 +143,11 @@ function getPriemernuVzdialenostByUserId($user_id) {
     }
     $conn->close();
     return $priemer;
+}
+
+function changeToken1(){
+    $myfile = fopen("../app/token.txt", "w") or die ("Nepodarilo sa otvorit subor");
+    $hash = md5( rand(0,1000) );
+    fwrite($myfile, $hash);
+    fclose($myfile);
 }

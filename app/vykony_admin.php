@@ -45,10 +45,13 @@ $userinfo = getAllUserInfoFromUsers();
             <a class="nav-link active" href="vykony_admin.php">Výkony</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="newsletter_admin.php">Newsletter</a>
+            <a class="nav-link active" href="../news/news-add.php">Aktuality</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
@@ -58,7 +61,7 @@ $userinfo = getAllUserInfoFromUsers();
 <div class="container">
     <h2>Uživatelia</h2>
     <div id="tableDiv">
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>Email</th>
@@ -80,7 +83,7 @@ $userinfo = getAllUserInfoFromUsers();
         </tbody>
     </table>
     </div>
-
+    <h2>Výkony</h2>
     <div id="tableDiv">
     <input type="hidden" id="tabOrder" value="desc">
     <input type="hidden" id="tabColumn" value="id">
@@ -106,7 +109,7 @@ $userinfo = getAllUserInfoFromUsers();
     <p>
         Priemerný počet kilometrov na jeden tréning je <span id="priemer"></span>
     </p>
-    <input type="button" value="Stiahnuť ako PDF" onclick="createPdf()">
+    <input type="button" class="btn btn-primary" value="Stiahnuť ako PDF" onclick="createPdf()">
 </div>
 </body>
 </html>

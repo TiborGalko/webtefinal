@@ -2,14 +2,19 @@
 
 	include_once "../db/usersdb.php";
 	include_once "../db/db.php";		
-
+	session_start();
 	$email = $_POST['email'];
 	$pwd = $_POST['password'];
+
+	if($pwd == 'user123'){
+		$_SESSION['user_login'] = $email;
+		header("Location: change_password.php");
+	}else{
 
 	if(isset($email) && isset($pwd)){
 		if(checkPasswd($email,$pwd)){		
 			echo "uspesne prihlasenie";	
-			session_start();
+			
 			$_SESSION['user_login'] = $email;
 			$_SESSION['user_type'] = getAccType($email)['role'];
 			$_SESSION['user_id'] = getAccId($email)['id'];
@@ -36,5 +41,6 @@
 			echo "neuspesne prihlasenie";
 		}
 	} 
+}
 
 	?>

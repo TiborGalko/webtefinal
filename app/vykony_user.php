@@ -44,6 +44,9 @@
             <a class="nav-link active" href="newsletter.php">Newsletter</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
         </li>
     </ul>

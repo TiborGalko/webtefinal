@@ -37,6 +37,7 @@
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
     <script src="add_trace.js"></script>
+    <script type="text/javascript" src="../__jquery.tablesorter/jquery.tablesorter.js"></script> 
 
     <link href="../css/style.css" type="text/css" rel="stylesheet">
 </head>
@@ -53,10 +54,13 @@
             <a class="nav-link active" href="vykony_admin.php">Výkony</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="newsletter_admin.php">Newsletter</a>
+            <a class="nav-link active" href="../news/news-add.php">Aktuality</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
@@ -119,13 +123,11 @@
             <th>Uživateľ</th>
         </tr>        
         </thead>
-        <tbody>
+        <tbody id="traces_body">
         <?php getAllTraces();  ?>
         </tbody>
     </table>
 
-
-    <a href="../news/news-add.php"><input type="button" name="pridatNovinku" id="news_add" value="Pridat aktualitu" class="btn btn-primary"></a>
     <aside>
         <?php        
 
@@ -148,7 +150,7 @@
                         $text = substr($text, 0, 150);
                         $text .= "...";
                     }
-                    echo "<b>" . $row["title"] . "</b><br>" . $text . "<span id=" . $row["id"] . " class='news-clickable'> citaj dalej</span><br>" . $row["id_autor"] . "<br>" . $row["created"] . "<br>--------------------------------<br>";
+                    echo "<b>" . $row["title"] . "</b><br>" . $text . "<span id=" . $row["id"] . " class='news-clickable'> citaj dalej</span><br>" . $row["autor"] . "<br>" . $row["created"] . "<br>--------------------------------<br>";
                 }
                 echo "<a href='../news/news-all.php'>Zobrazit vsetky novinky</a>";
             } else {
@@ -162,6 +164,18 @@
     <script>
         let mapaTras;
 
+        let start = document.getElementById('miestoStart');
+        let ciel = document.getElementById('miestoCiel');
+        let options = {
+            types: ['establishment']
+        };
+
+        var count = 1;
+        var startLat;
+        var startLng;
+        var stopLat;
+        var stoptLng;
+
         //event listener na nacitanie mapy po skonceni nacitania
         google.maps.event.addDomListener(window, 'load', init);
 
@@ -169,13 +183,50 @@
             initMap();
         }
         function initMap() {
-            map = new google.maps.Map(document.getElementById('mapaTras'), {
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            mapaTras = new google.maps.Map(document.getElementById('mapaTras'), {
                 zoom: 7,
                 center: {lat: 48.669026, lng: 19.69902400000001}
             });
-        }
+            directionsDisplay.setMap(mapaTras);
 
-    </script>
+            google.maps.event.addListener(mapaTras, "click", function (e) {
+                //lat and lng is available in e object
+                let latLng = e.latLng;              
+
+                if((count % 2) == 1){
+                    startLat = latLng.lat();
+                    startLng = latLng.lng();
+                    $("#from").val(latLng.lat()+","+latLng.lng()); 
+                } else {
+                    stopLat = latLng.lat();
+                    stoptLng = latLng.lng();
+                    $("#to").val(latLng.lat()+","+latLng.lng()); 
+                    calculateAndDisplayRoute(directionsService, directionsDisplay);
+                }
+                count++;
+            });
+
+            
+
+            function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+               directionsService.route({
+                origin: {lat: startLat  , lng: startLng},
+                destination: {lat: stopLat, lng: stoptLng},
+                travelMode: 'WALKING'
+            }, function(response, status) {
+              if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+            });
+        
+        }
+       }
+
+   </script>
 </div>
 </body>
 </html>

@@ -22,6 +22,12 @@ if(isset($_POST['loc'])) {
     }
 }
 
+if(isset($_POST['zmen_heslo'])){
+    echo "test";
+    changePassword($_POST['zmen_heslo']);
+    header("Location: ../user/prihlasenie.html");
+}
+
 /*else if(isset($_POST['email'])) {
     checkPasswd($_POST['email'], $_POST['password']);
 }*/
@@ -392,7 +398,7 @@ function insertIntoNews($user_id, $title, $text){
     $conn = connect();
     $sql = "INSERT INTO news (id_autor, title, text, created) VALUES ('$user_id', '$title', '$text', NOW())";
 
-   $conn->query($sql);
+    $conn->query($sql);
 
     $conn->close();
 
@@ -404,4 +410,19 @@ function changeToken(){
     $hash = md5( rand(0,1000) );
     fwrite($myfile, $hash);
     fclose($myfile);
+}
+
+function changePassword($passwd){
+
+
+    session_start();
+    $pas = hash('sha512', $passwd);
+    $email = $_SESSION['user_login'];
+    $conn = connect();
+    $sql = "update users set passwd='".$pas."' where email='".$email."';";
+
+    $conn->query($sql);
+    session_unset(); 
+    session_destroy();
+    $conn->close();
 }

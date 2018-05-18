@@ -39,10 +39,13 @@
             <a class="nav-link active" href="vykony_admin.php">Výkony</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="newsletter_admin.php">Newsletter</a>
+            <a class="nav-link active" href="../news/news-add.php">Aktuality</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="nastavenia.php">Nastavenia</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="signout.php">Odhlásiť sa</a>

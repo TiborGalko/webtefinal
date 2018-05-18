@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <title>Prihlásenie</title>
+    <title>Registrácia</title>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -20,7 +20,7 @@
     <a href="../index.php">Späť na úvodnú stránku</a>
 </header>
 <div class="container">
-    <div class="col-lg-6 col-lg-offset-2">
+    <div class="col-lg-6">
     <form method="post" action="../db/usersdb.php">
         <div class="form-group">
             <label for="email">Email: </label>
@@ -30,35 +30,40 @@
             <label for="heslo">Heslo: </label>
             <input id="heslo" type="password" class="form-control" name="password" required>
         </div>
-        <div class="form-group">
+        <div class="form-row">
+        <div class="form-group col-md-6">
             <label for="meno">Meno: </label>
             <input id="meno" type="text" class="form-control" name="meno" required>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="priezvisko">Priezvisko: </label>
             <input id="priezvisko" type="text" class="form-control" name="priezvisko" required>
         </div>
-        <div class="form-group">
-            <label for="mesto">Mesto: </label>
-            <input id="mesto" type="text" class="form-control" name="mesto" required>
         </div>
         <div class="form-group">
             <label for="ulica">Ulica a číslo: </label>
             <input id="ulica" type="text" class="form-control" name="ulica" required>
         </div>
-        <div class="form-group">
+        <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="mesto">Mesto: </label>
+            <input id="mesto" type="text" class="form-control" name="mesto" required>
+        </div>
+        <div class="form-group col-md-6">
             <label for="psc">PSČ: </label>
             <input id="psc" type="text" class="form-control" name="psc" required>
         </div>
-        <div class="form-group">
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-6">
             <label for="skolameno">Meno školy: </label>
             <input id="skolameno" type="text" class="form-control" name="skolameno" required>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="skolaadresa">Adresa školy: </label>
             <input id="skolaadresa" type="text" class="form-control" name="skolaadresa" required>
         </div>
-
+        </div>
         <input type="submit" class="btn btn-primary" value="Potvrdiť">
     </form>
         <a href="prihlasenie.html">Máte už účet ? Prihláste sa</a>

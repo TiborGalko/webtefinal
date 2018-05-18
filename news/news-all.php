@@ -22,7 +22,7 @@
     // Create connection
     $conn = connect();
 
-    $sql = "SELECT * FROM news ORDER BY created DESC";
+    $sql = "SELECT * FROM news ORDER BY created DESC ";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -35,7 +35,7 @@
                 $text = substr($text, 0, 150);
                 $text .= "...";
             }
-            echo "<b>".$row["title"]."</b><br>".$text."<span id=".$row["id"]." class='news-clickable'> citaj dalej</span><br>".$row["id_autor"]."<br>".$row["created"]."<br>--------------------------------<br>";
+            echo "<b>".$row["title"]."</b><br>".$text."<span id=".$row["id"]." class='news-clickable'> citaj dalej</span><br>".$row["autor"]."<br>".$row["created"]."<br>--------------------------------<br>";
         }
     } else {
         echo "Ziadne novinky";

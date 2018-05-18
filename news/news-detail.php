@@ -29,7 +29,7 @@
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            echo "<b>".$row["title"]."</b><br>".$row["id_autor"]."<br>".$row["text"]."<br>".$row["created"];
+            echo "<b>".$row["title"]."</b><br>".$row["autor"]."<br>".$row["text"]."<br>".$row["created"];
         }
     } else {
         echo "Novinka sa nenasla";

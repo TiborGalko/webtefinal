@@ -5,7 +5,6 @@ function getUserVykony(id) {
         type: "post",
         data: {user_id: id},
         success: function (response) {
-            console.log(response);
             try {
                 let json = JSON.parse(response);
                 json = JSON.parse(json);

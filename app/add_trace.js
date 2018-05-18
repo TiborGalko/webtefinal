@@ -20,13 +20,22 @@ $(document).ready(function(){
 			data: { postfrom: from, postto: to},
 			success: function(data) {	
 
-				console.log(data);
-				$("#traces_table").append(data);
+				//console.log(data);
+				$("#traces_body").append(data);
 				$("#alert-success").show(200);
 
 				$("#traces_table").find('tr').click( function(){
     				var from = $(this).find('td:eq(0)').text();
     				var to = $(this).find('td:eq(1)').text();
+
+    				var res1 = from.split(",");
+    				var res2 = to.split(",");
+
+    				startLat = parseFloat(res1[0]);
+       				startLng = parseFloat(res1[1]);
+        			stopLat = parseFloat(res2[0]);
+        			stopLng = parseFloat(res2[1]);
+        			calculateAndDisplayRoute(directionsService, directionsDisplay);
 
     				$("td.td-active").html("Neaktivna");
     				$("td.td-active").attr('class', 'td-noactive');
@@ -53,6 +62,19 @@ $(document).ready(function(){
 	$("#traces_table").find('tr').click( function(){
     	var from = $(this).find('td:eq(0)').text();
     	var to = $(this).find('td:eq(1)').text();
+
+    	if($(this).find('th:eq(2)').text() == "Aktívna/Neaktívna"){
+    		return;
+    	}
+
+    	var res1 = from.split(",");
+    	var res2 = to.split(",");
+
+    	startLat = parseFloat(res1[0]);
+        startLng = parseFloat(res1[1]);
+        stopLat = parseFloat(res2[0]);
+        stopLng = parseFloat(res2[1]);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
 
     	$("td.td-active").html("Neaktivna");
     	$("td.td-active").attr('class', 'td-noactive');
@@ -95,4 +117,27 @@ $(document).ready(function(){
 			}
 		});
     });
+    $("#traces_table").tablesorter(); 
+    $("#add_vykon").click(function(){
+    	$("#show_vykon").show(200);
+    	$("#add_vykon").hide();
+    });
+    $("#close_icon2").click(function(){
+		$("#show_vykon").hide(200);
+		$("#add_vykon").show();
+	});
+	$('#traces_table tr').each(function() {
+    	if($(this).find("td:eq(2)").text() == "Aktivna"){
+    		var from = $(this).find("td:eq(0)").text();
+    		var to = $(this).find("td:eq(1)").text();
+    		var res1 = from.split(",");
+    		var res2 = to.split(",");
+
+    		startLat = parseFloat(res1[0]);
+        	startLng = parseFloat(res1[1]);
+        	stopLat = parseFloat(res2[0]);
+        	stopLng = parseFloat(res2[1]);
+        	calculateAndDisplayRoute(directionsService, directionsDisplay);
+    	}   
+ 	});
 });
