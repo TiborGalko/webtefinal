@@ -49,6 +49,7 @@
     </ul>
 </nav>
 <div class="container">
+    <div id="tableDiv">
     <input type="hidden" id="tabOrder" value="desc">
     <input type="hidden" id="tabColumn" value="id">
     <table id="tabVykonov" class="table">
@@ -72,6 +73,7 @@
         ?>
         </tbody>
     </table>
+    </div>
     <p>
         Priemerný počet kilometrov na jeden tréning je <?php echo getPriemernuVzdialenostByUserId($_SESSION['user_id']); ?>
     </p>

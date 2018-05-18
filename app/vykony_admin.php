@@ -57,6 +57,7 @@ $userinfo = getAllUserInfoFromUsers();
 </nav>
 <div class="container">
     <h2>Uživatelia</h2>
+    <div id="tableDiv">
     <table class="table">
         <thead>
         <tr>
@@ -78,7 +79,9 @@ $userinfo = getAllUserInfoFromUsers();
         ?>
         </tbody>
     </table>
+    </div>
 
+    <div id="tableDiv">
     <input type="hidden" id="tabOrder" value="desc">
     <input type="hidden" id="tabColumn" value="id">
     <input type="hidden" id="user_id" value="">
@@ -99,6 +102,7 @@ $userinfo = getAllUserInfoFromUsers();
         <tbody>
         </tbody>
     </table>
+    </div>
     <p>
         Priemerný počet kilometrov na jeden tréning je <span id="priemer"></span>
     </p>

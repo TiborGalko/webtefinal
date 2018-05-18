@@ -1,17 +1,21 @@
 #map {
     height: 500px;
     width: auto;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 #mapaTras {
     height: 500px;
     width: auto;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 .news-clickable {
 	color: blue;
 	cursor: pointer;
 }
 
-#news-back {
+#news-back, #news-back2 {
 	color: blue;
 	cursor: pointer;
 }
@@ -26,14 +30,14 @@ nav {
     display: none;
 }
 
-#close_icon {
+#close_icon, #close_icon2 {
     float: right;
     margin-top: -30px;
     opacity: .5;
     cursor: pointer;
 }
 
-#close_icon:hover {
+#close_icon:hover, #close_icon2:hover {
     opacity: .8;
 }
 
@@ -61,4 +65,31 @@ nav {
 #filter_cancel {
     color: blue;
     cursor: pointer;
+}
+
+#alert-success2 {
+    display: none;
+}
+
+#alert-fail2 {
+    display: none;
+}
+
+#show_vykon {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 15px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 10px 10px 5px gray;
+    margin-bottom: 25px;
+    display: none;
+}
+#tableDiv {
+    height: 500px;
+    overflow: auto;
+}
+.btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
