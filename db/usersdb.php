@@ -32,9 +32,9 @@ if(isset($_POST['loc'])) {
 function insertNewUser($surname,$name,$email,$schoolname,$schooladdr,$street,$psc,$city,$passwd) {
     $id_school = insertIntoSchool($schoolname,$schooladdr);
     insertIntoUsers($id_school, $surname, $name, $email, $passwd,$street, $psc, $city);
-    echo '<script type="text/javascript">
-    window.location = "index.php"
-    </script>';
+    /*echo '<script type="text/javascript">
+    window.location = "../index.php"
+    </script>';*/
 }
 
 //funkcia skontroluje ci je heslo spravne
@@ -104,8 +104,8 @@ function insertIntoUsers($id_school, $surname, $name, $email, $passwd, $street, 
     $hash = md5( rand(0,1000) ); // hash na verifikaciu mailu
     $status = 0;
     $conn = connect();
-    $sql = "INSERT INTO users(id_school,name,surname,city,street,psc,email,passwd,role,latlng) ".
-    "VALUES('".$id_school."','".$name."','".$surname."','".$city."','".$street."','".$psc."','".$email."','".$passwd."','".$role."','".$latlng."');";
+    $sql = "INSERT INTO users(id_school,name,surname,city,street,psc,email,passwd,role,latlng,active_trace) ".
+    "VALUES('".$id_school."','".$name."','".$surname."','".$city."','".$street."','".$psc."','".$email."','".$passwd."','".$role."','".$latlng."',0);";
     if ($conn->query($sql) === TRUE) {
         $last_id = $conn->insert_id;
         echo "New record created successfully. Last inserted ID is: " . $last_id . "<br>";
