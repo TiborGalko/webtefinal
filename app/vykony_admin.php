@@ -79,7 +79,7 @@ $userinfo = getAllUserInfoFromUsers();
         </tbody>
     </table>
 
-    <input type="hidden" id="tabOrder" value="asc">
+    <input type="hidden" id="tabOrder" value="desc">
     <input type="hidden" id="tabColumn" value="id">
     <input type="hidden" id="user_id" value="">
     <table id="tabVykonov" class="table">

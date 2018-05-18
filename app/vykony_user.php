@@ -49,7 +49,7 @@
     </ul>
 </nav>
 <div class="container">
-    <input type="hidden" id="tabOrder" value="asc">
+    <input type="hidden" id="tabOrder" value="desc">
     <input type="hidden" id="tabColumn" value="id">
     <table id="tabVykonov" class="table">
         <thead>
