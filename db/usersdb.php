@@ -250,6 +250,75 @@ function sendVerificationEmail($email,$hash,$id){
 
 }
 
+function newsletterActiveCancel($email,$tmp){
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = '465';
+    $mail->isHTML();
+    $mail->Username='webte2final@gmail.com';
+    $mail->Password='final123456';
+    $mail->setFrom('no-reply@webte2.sk');
+    if($tmp==1){
+        $mail->Subject='Odber noviniek aktivny';
+         $mail->Body= 'Prihlásili ste na odber noviniek. Ak chcete zrušiť odber, môžete to spraviť na http://147.175.98.141/final/app/newsletter.php .
+
+    ';
+    }
+    if($tmp==0){
+        $mail->Subject='Odber noviniek zruseny';
+         $mail->Body= 'Zrušili ste odber noviniek, ak si ho chcete znovu aktivovať môžete tak urobiť na http://147.175.98.141/final/app/newsletter.php .
+
+    ';
+    }
+   
+    $mail->AddAddress($email);
+
+    $mail->Send();
+
+}
+
+function sendNews($title,$text){
+    $sql="SELECT * FROM `newsletter` WHERE 1;";
+    $conn = connect();
+    session_start();
+    $from = $_SESSION['user_login'];
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while($row = mysqli_fetch_array($result)){
+            sendMessage($from,$title,$text,$row['mail']);
+        }
+    }
+}
+
+function sendMessage($from,$title,$text,$to){
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = '465';
+    $mail->isHTML();
+    $mail->Username='webte2final@gmail.com';
+    $mail->Password='final123456';
+    $mail->setFrom('no-reply@webte2.sk');
+    $mail->Subject='Newsletter aktuality';
+    $mail->Body= 'Používateľ '.$from.' pridal aktualitu:'.PHP_EOL.'
+    Subject: '.$title.PHP_EOL.'
+    Message: '.$text.'
+
+    ';
+   
+    $mail->AddAddress($to);
+
+
+    
+    $mail->Send();
+}
+
+
 function getAccId($email){
     $conn = connect();
     $sql = "SELECT id FROM users WHERE email='$email'";
@@ -307,21 +376,25 @@ function insertIntoTraces($user_id, $from, $to, $mode){
     // output data of each row
         while($row = $result->fetch_assoc()) {
                 echo "<tr><td>".$row["from_t"]."</td><td>".$row["to_t"]."</td><td class='td-noactive'>Neaktivna</td><td>".$row['mode']."</td></tr>";            
-        }
-    } 
+        } 
+    }
     } else {
-        $sql = "INSERT INTO traces (id_autor, from_t, to_t, mode) VALUES ('$user_id', '$from', '$to', '$mode')";
+        $sql = "SELECT id FROM users";
+        $resultUsers = $conn->query($sql);
+        while($row = $resultUsers->fetch_assoc()) {
+            $sql = "INSERT INTO traces (id_autor, from_t, to_t, mode) VALUES (".$row["id"].", '$from', '$to', '$mode')";
 
-        $conn->query($sql);
-        $last_id = $conn->insert_id;
-    
-        $sql = "SELECT * FROM traces t INNER JOIN users u ON t.id_autor = u.id WHERE t.id='$last_id'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-        // output data of each row
-            while($row = $result->fetch_assoc()) {
-                echo "<tr><td>".$row['from_t']."</td><td>".$row['to_t']."</td><td>".$row['mode']."</td><td>".$row['email']."</td></tr>";            
-        }
+            $conn->query($sql);
+            $last_id = $conn->insert_id;
+
+            $sql = "SELECT * FROM traces t INNER JOIN users u ON t.id_autor = u.id WHERE t.id='$last_id'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr><td>" . $row['from_t'] . "</td><td>" . $row['to_t'] . "</td><td>" . $row['mode'] . "</td><td>" . $row['email'] . "</td></tr>";
+                }
+            }
         }
     }
     changeToken();
@@ -394,9 +467,10 @@ function getFilterTraces($filter){
 }
 
 function insertIntoNews($user_id, $title, $text){
-
+    session_start();
+    $mail = $_SESSION['user_login'];
     $conn = connect();
-    $sql = "INSERT INTO news (id_autor, title, text, created) VALUES ('$user_id', '$title', '$text', NOW())";
+    $sql = "INSERT INTO news (id,autor, title, text, created) VALUES ('$user_id','$mail', '$title', '$text', NOW());";
 
     $conn->query($sql);
 

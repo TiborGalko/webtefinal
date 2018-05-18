@@ -14,9 +14,13 @@ if ($result->num_rows > 0) {
         //$row = $result->fetch_assoc();
 	$sql = "UPDATE aktivacia SET active='1' WHERE id='".$id."' AND hash='".$hash."' AND active='0';";
 	$conn->query($sql);
-	echo "aktivovane";
-    }else{
-    	echo "error";
+	//echo "aktivovane";
+    header("Location: ../app/app_user.php");
+
+    }
+    else{
+        //echo "error";
+        header("Location: ../index.php");
     }
 
 $conn->close();

@@ -37,7 +37,7 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="add_trace.js"></script>  
     <script type="text/javascript" src="../__jquery.tablesorter/jquery.tablesorter.js"></script> 
-
+    <script type="text/javascript" src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js" ></script>
         
 
     <link href="../css/style.css" type="text/css" rel="stylesheet">
@@ -52,25 +52,29 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
                 <a class="nav-link active" href="app_user.php">Aplikácia</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="vykony_user.php">Výkony</a>
+                <a class="nav-link " href="vykony_user.php">Výkony</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="newsletter.php">Newsletter</a>
+                <a class="nav-link " href="newsletter.php">Newsletter</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link active" href="change_password.php">Zmena hesla</a>
+            <a class="nav-link " href="change_password.php">Zmena hesla</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="signout.php">Odhlásiť sa</a>
+                <a class="nav-link " href="signout.php">Odhlásiť sa</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link"><?php echo $_SESSION['user_login']." (".$_SESSION['user_type'].")"; ?></a>
+        </li>
         </ul>
     </nav>
     <div class="container">
         <div id="mapaTras"></div>
 
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+            <div id="progress_bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
         </div>
+        <span id="progress_text"></span><br>
 
         <input type="button" name="vykon" id="add_vykon" class="btn btn-primary" value="Pridat vykon">
         <div id="show_vykon">
@@ -95,11 +99,11 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
                 </div>
                 <div class="form-group">
                     <label for="casStart">Čas začiatku: </label>
-                    <input id="casStart" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" name="casStart" title="Formát HH:MM">
+                    <input id="casStart" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" name="casStart" title="Formát HH:MM:SS">
                 </div>
                 <div class="form-group">
                     <label for="casKoniec">Čas konca: </label>
-                    <input id="casKoniec" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" name="casKoniec" title="Formát HH:MM">
+                    <input id="casKoniec" type="text" class="form-control" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" name="casKoniec" title="Formát HH:MM:SS">
                 </div>
                 <div class="form-group">
                     <label for="miestoStart">Miesto štartu: </label>
@@ -112,11 +116,11 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
                 <div class="form-group">
                     <label for="hodnotenie">Hodnotenie: </label>
                     <select id="hodnotenie" class="form-control" name="hodnotenie">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        <option value="1" data-imagesrc="../img/1.png" data-description="1">1</option>
+                        <option value="2" data-imagesrc="../img/2.png" data-description="2">2</option>
+                        <option value="3" data-imagesrc="../img/3.png" data-description="3">3</option>
+                        <option value="4" data-imagesrc="../img/4.png" data-description="4">4</option>
+                        <option value="5" data-imagesrc="../img/5.png" data-description="5">5</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -124,6 +128,8 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
                     <textarea id="poznamka" rows="5" cols="20" class="form-control" name="poznamka" placeholder="Popíšte svoj tréning" maxlength="150"></textarea>
                 </div>
                 <input type="submit" class="btn btn-primary" value="Uložiť">
+                <input type="hidden" name="from" id="hidden_from">
+                <input type="hidden" name="to" id="hidden_to">
             </form>
         </div>
 
@@ -284,26 +290,50 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
         }
 
         function getDistance(){
-        var request = {
-            origin: {lat: startLat  , lng: startLng},
-            destination: {lat: stopLat, lng: stopLng},
-            travelMode: "WALKING"
-        };
+            $("#hidden_from").val(startLat+","+startLng);
+            $("#hidden_to").val(stopLat+","+stopLng);
+            var request = {
+                origin: {lat: startLat  , lng: startLng},
+                destination: {lat: stopLat, lng: stopLng},
+                travelMode: "WALKING"
+            };
 
             directionsService.route(request, function(result, status){
-            if(status == "OK"){
-                return parseFloat(result.routes[0].legs[0].distance.text);
-            }
-            });
-        } 
+                if(status == "OK"){
+                    var distance = parseInt(result.routes[0].legs[0].distance.text); 
+                    var from = startLat+","+startLng;   
+                    var to = stopLat+","+stopLng;      
 
-        function showProgress(){
-            var distance = getDistance();            
-        }       
+                    $.ajax({
+                        url: "../db/tracesdb.php",
+                        method: "POST",
+                        data: {postfrom: from, postto: to},
+                        success: function(data) {   
+                            var done = parseInt(data); 
+                            var result = Math.round((done/distance)*100);
+                            $("#progress_bar").attr("aria-valuenow", result);
+                            $("#progress_bar").attr("style", "width: " + result + "%");
+                            $("#progress_text").html("Na tejto trase musite zvladnut este " + (distance-done) + " km");
+                        },
+                        error: function(){
+                        }
+                    });                             
+                }
+            });
+        }    
     
 
    </script>
-   <script>/*
+   <script>
+        $('#hodnotenie').ddslick({
+         onSelected: function(selectedData){
+        //callback function: do something with selectedData;
+    }   
+});
+
+
+
+   /*
         $().ready(function () {
             setToken();
             pollServer();

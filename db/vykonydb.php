@@ -6,7 +6,8 @@ session_start();
 
 if(isset($_POST['kilometre'])) {
     if(isset($_SESSION['user_id'])) {
-        vytvoritVykon($_POST['kilometre']); //staci lebo ostatne niesu required
+        print_r($_POST);
+        vytvoritVykon($_POST['kilometre'], $_POST['from'], $_POST['to']); //staci lebo ostatne niesu required
     }
 }
 
@@ -34,7 +35,7 @@ if(isset($_POST['user_id']) && !isset($_POST['columnName']) && !isset($_POST['or
 }
 
 //funkcia na nastavenie premennych pre vkladanie vykonu
-function vytvoritVykon($km) {
+function vytvoritVykon($km,$from,$to) {
     $latlngStart = "NULL";
     $latlngCiel = "NULL";
     $casStartu = "0";
@@ -79,19 +80,26 @@ function vytvoritVykon($km) {
     if(!empty($_POST['den'])) {
         $den = $_POST['den'];
     }
-    insertIntoVykony($km,$user_id,$den,$casStartu,$casKonca,$latlngStart,$latlngCiel,$hodnotenie,$poznamka,$rychlost);
+    insertIntoVykony($km,$user_id,$den,$casStartu,$casKonca,$latlngStart,$latlngCiel,$hodnotenie,$poznamka,$rychlost,$from,$to);
     header("Location: ../app/app_user.php");
 }
 
 //vkladanie do tabulky vykonov
-function insertIntoVykony($km, $user_id, $den, $casStart, $casKoniec, $miestoStart, $miestoCiel, $hodnotenie, $poznamka, $rychlost) {
+function insertIntoVykony($km, $user_id, $den, $casStart, $casKoniec, $miestoStart, $miestoCiel, $hodnotenie, $poznamka, $rychlost,$from,$to) {
     $conn = connect();
+
     $sql = "INSERT INTO vykony(user_id, kilometre, den, cas_start, cas_finish, latlng_start, latlng_finish, hodnotenie, poznamka, rychlost, trace_id) ".
         "VALUES(".$user_id.",".$km.",'".$den."','".$casStart."','".$casKoniec."','".$miestoStart."','".$miestoCiel."','".$hodnotenie."','".$poznamka."',".$rychlost.",'0')";
     if ($conn->query($sql) === TRUE) {
-        //echo "Záznam úspešne zapísaný" . "<br>";
+        echo "Záznam úspešne zapísaný" . "<br>";
     } else {
-        //echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
+        echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
+    }
+    $sql = "UPDATE traces SET done=done+".$km." WHERE from_t='".$from."' AND to_t='".$to."' AND (id_autor=".$_SESSION['user_id']." OR mode='verejny')";
+    if ($conn->query($sql) === TRUE) {
+        echo "Záznam úspešne zapísaný" . "<br>";
+    } else {
+        echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
     }
     changeToken1();
     $conn->close();
