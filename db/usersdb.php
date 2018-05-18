@@ -173,6 +173,15 @@ function getAllUserInfoFromUsers() {
     return $rows;
 }
 
+function getUserInfoFromUsersById($id) {
+    $conn = connect();
+    $sql = "SELECT email,name,surname FROM users WHERE id=".$id.";";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $conn->close();
+    return $row;
+}
+
 function getAccType($email){
     $conn = connect();
     $sql = "SELECT role FROM users WHERE email='$email'";

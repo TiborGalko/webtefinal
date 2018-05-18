@@ -3,6 +3,7 @@
 require_once "../tcpdf/config/tcpdf_config.php";
 require_once "../tcpdf/tcpdf.php";
 include_once "../db/vykonydb.php";
+include_once "../db/usersdb.php";
 
 session_start();
 
@@ -13,16 +14,20 @@ if(isset($_SESSION['user_id']) && (!isset($_GET['id']) || $_GET['id'] === "")) {
         outputPdf($_SESSION['user_id'], $col, $order);
     }
 }
-else if(isset($_GET['id']) && $_GET['id'] !== "") {
-    if(isset($_GET['col']) && isset($_GET['order'])) {
-        $col = $_GET['col'];
-        $order = $_GET['order'];
-        outputPdf($_GET['id'], $col, $order);
+else if(isset($_SESSION['user_id']) && isset($_GET['id']) && $_GET['id'] !== "") {
+    if((($_SESSION['user_type'] === "user") && ($_SESSION['user_id'] === $_GET['id'])) || $_SESSION['user_type'] === 'admin') {
+        if (isset($_GET['col']) && isset($_GET['order'])) {
+            $col = $_GET['col'];
+            $order = $_GET['order'];
+            outputPdf($_GET['id'], $col, $order);
+        }
     }
 }
 
 function outputPdf($user_id, $col, $order)
 {
+    $userinfo = getUserInfoFromUsersById($_SESSION['user_id']);
+
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
@@ -59,6 +64,8 @@ function outputPdf($user_id, $col, $order)
     $pdf->AddPage();
 
     $html = '<h2>Tabuľka výkonov</h2>
+<p>Meno: '. $userinfo['name'] . ' ' . $userinfo['surname'] .'</p>
+<p>Email: '. $userinfo['email'] .'</p>
 <table border="1" cellpadding="4">
     <thead>
         <tr>

@@ -51,6 +51,9 @@ function createPdf() {
     let orderVal = order.val();
     let idElement =  $("#user_id");
     let id = idElement.val();
+    if(id === undefined) {
+        id = "";
+    }
     if(orderVal === "asc") {
         orderVal = "desc";
     }
