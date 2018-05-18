@@ -13,7 +13,7 @@
 	} else {
 		$mode = "verejny";
 	}
-
+	
 	insertIntoTraces($user_id, $from, $to, $mode);
 
 	?>

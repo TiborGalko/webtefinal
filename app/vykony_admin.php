@@ -54,13 +54,19 @@ $userinfo = getAllUserInfoFromUsers();
             <a class="nav-link" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="admin_dokumentacia.php">Dokumentácia</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="signout.php">Odhlásiť sa</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"><?php echo $_SESSION['user_login']." (".$_SESSION['user_type'].")"; ?></a>
         </li>
     </ul>
 </nav>
 <div class="container">
     <h2>Uživatelia</h2>
-    <div id="tableDiv">
+    <div id="tableDiv1">
     <table class="table table-hover">
         <thead>
         <tr>

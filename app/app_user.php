@@ -61,6 +61,9 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
             <a class="nav-link " href="change_password.php">Zmena hesla</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="user_dokumentacia.php">Dokumentácia</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link " href="signout.php">Odhlásiť sa</a>
             </li>
             <li class="nav-item">
@@ -214,9 +217,9 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
                     $text = substr($text, 0, 150);
                     $text .= "...";
                 }
-                echo "<b>" . $row["title"] . "</b><br>" . $text . "<span id=" . $row["id"] . " class='news-clickable'> citaj dalej</span><br>" . $row["id_autor"] . "<br>" . $row["created"] . "<br>--------------------------------<br>";
+                echo "<b>" . $row["title"] . "</b><br>" . $text . "<span id=" . $row["id"] . " class='news-clickable'> citaj dalej</span><br><span class='autor'>" . $row["autor"] . "</span><br><i>" . $row["created"] . "</i><br><hr>";
             }
-            echo "<a href='../news/news-all.php'>Zobrazit vsetky novinky</a>";
+            echo "<a href='../news/news-all.php'>Zobrazit vsetky novinky</a><br><br>";
         } else {
             echo "Ziadne novinky";
         }
@@ -311,9 +314,15 @@ if(strcmp($_SESSION['user_type'], "user") != 0){
                         success: function(data) {   
                             var done = parseInt(data); 
                             var result = Math.round((done/distance)*100);
+                            if(result >= 100){
+                                result = 100;
+                                $("#progress_text").html("Gratulujem, zvladli ste celu trasu!");
+                            } else {
+                                $("#progress_text").html("Na tejto trase musite zvladnut este " + (distance-done) + " km.");
+                            }
                             $("#progress_bar").attr("aria-valuenow", result);
                             $("#progress_bar").attr("style", "width: " + result + "%");
-                            $("#progress_text").html("Na tejto trase musite zvladnut este " + (distance-done) + " km");
+                            
                         },
                         error: function(){
                         }

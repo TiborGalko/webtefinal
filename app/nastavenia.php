@@ -48,7 +48,13 @@
             <a class="nav-link" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
+                <a class="nav-link" href="admin_dokumentacia.php">Dokumentácia</a>
+            </li>
+        <li class="nav-item">
             <a class="nav-link" href="signout.php">Odhlásiť sa</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"><?php session_start(); echo $_SESSION['user_login']." (".$_SESSION['user_type'].")"; ?></a>
         </li>
     </ul>
 </nav>

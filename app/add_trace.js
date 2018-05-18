@@ -36,6 +36,7 @@ $(document).ready(function(){
         			stopLat = parseFloat(res2[0]);
         			stopLng = parseFloat(res2[1]);
         			calculateAndDisplayRoute(directionsService, directionsDisplay);
+        			getDistance();
 
     				$("td.td-active").html("Neaktivna");
     				$("td.td-active").attr('class', 'td-noactive');
@@ -75,6 +76,7 @@ $(document).ready(function(){
         stopLat = parseFloat(res2[0]);
         stopLng = parseFloat(res2[1]);
         calculateAndDisplayRoute(directionsService, directionsDisplay);
+        getDistance();
 
     	$("td.td-active").html("Neaktivna");
     	$("td.td-active").attr('class', 'td-noactive');
@@ -138,6 +140,7 @@ $(document).ready(function(){
         	stopLat = parseFloat(res2[0]);
         	stopLng = parseFloat(res2[1]);
         	calculateAndDisplayRoute(directionsService, directionsDisplay);
+        	getDistance();
     	}   
  	});
 });

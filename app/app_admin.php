@@ -63,7 +63,13 @@
             <a class="nav-link" href="change_password.php">Zmena hesla</a>
         </li>
         <li class="nav-item">
+                <a class="nav-link" href="admin_dokumentacia.php">Dokumentácia</a>
+            </li>
+        <li class="nav-item">
             <a class="nav-link" href="signout.php">Odhlásiť sa</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"><?php echo $_SESSION['user_login']." (".$_SESSION['user_type'].")"; ?></a>
         </li>
     </ul>
 </nav>
@@ -150,9 +156,9 @@
                         $text = substr($text, 0, 150);
                         $text .= "...";
                     }
-                    echo "<b>" . $row["title"] . "</b><br>" . $text . "<span id=" . $row["id"] . " class='news-clickable'> citaj dalej</span><br>" . $row["autor"] . "<br>" . $row["created"] . "<br>--------------------------------<br>";
+                    echo "<b>" . $row["title"] . "</b><br>" . $text . "<span id=" . $row["id"] . " class='news-clickable'> citaj dalej</span><br><span class='autor'>" . $row["autor"] . "</span><br><i>" . $row["created"] . "</i><br><hr>";
                 }
-                echo "<a href='../news/news-all.php'>Zobrazit vsetky novinky</a>";
+                echo "<a href='../news/news-all.php'>Zobrazit vsetky novinky</a><br><br>";
             } else {
                 echo "Ziadne novinky";
             }

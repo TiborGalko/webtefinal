@@ -50,7 +50,7 @@ nav {
 }
 
 .td-active {
-    color: green;
+    color: #5FB404;
 }
 
 .td-noactive {
@@ -93,4 +93,8 @@ nav {
 .btn {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.autor {
+    font-size: 13px;
 }

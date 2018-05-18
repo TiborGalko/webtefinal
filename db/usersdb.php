@@ -379,22 +379,18 @@ function insertIntoTraces($user_id, $from, $to, $mode){
         } 
     }
     } else {
-        $sql = "SELECT id FROM users";
-        $resultUsers = $conn->query($sql);
-        while($row = $resultUsers->fetch_assoc()) {
-            $sql = "INSERT INTO traces (id_autor, from_t, to_t, mode) VALUES (".$row["id"].", '$from', '$to', '$mode')";
+        $sql = "INSERT INTO traces (id_autor, from_t, to_t, mode) VALUES ('$user_id', '$from', '$to', '$mode')";
 
-            $conn->query($sql);
-            $last_id = $conn->insert_id;
-
-            $sql = "SELECT * FROM traces t INNER JOIN users u ON t.id_autor = u.id WHERE t.id='$last_id'";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr><td>" . $row['from_t'] . "</td><td>" . $row['to_t'] . "</td><td>" . $row['mode'] . "</td><td>" . $row['email'] . "</td></tr>";
-                }
-            }
+        $conn->query($sql);
+        $last_id = $conn->insert_id;
+    
+        $sql = "SELECT * FROM traces t INNER JOIN users u ON t.id_autor = u.id WHERE t.id='$last_id'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<tr><td>".$row['from_t']."</td><td>".$row['to_t']."</td><td>".$row['mode']."</td><td>".$row['email']."</td></tr>";            
+        }
         }
     }
     changeToken();
@@ -466,12 +462,12 @@ function getFilterTraces($filter){
     $conn->close();
 }
 
-function insertIntoNews($user_id, $title, $text){
+function insertIntoNews($title, $text){
     session_start();
     $mail = $_SESSION['user_login'];
     $conn = connect();
-    $sql = "INSERT INTO news (id,autor, title, text, created) VALUES ('$user_id','$mail', '$title', '$text', NOW());";
-
+    $sql = "INSERT INTO news (autor, title, text, created) VALUES ('$mail', '$title', '$text', NOW());";
+    echo $sql;
     $conn->query($sql);
 
     $conn->close();

@@ -14,6 +14,7 @@ if($tmp==1){
 	if ($result->num_rows == 0) {
 		$sql = "insert into newsletter(mail) values('".$mail."');";
 		$conn->query($sql);
+		newsletterActiveCancel($mail,$tmp);
 		header("Location: newsletter.php?status=1");
 	}else{
 		header("Location: newsletter.php?status=3");
@@ -21,12 +22,14 @@ if($tmp==1){
 
 }else{
 	if($tmp == 0){
+		//zrusi odber, vymaze mail z db
 		$sql = "SELECT mail from newsletter WHERE mail='".$mail."';";
 		$result = $conn->query($sql);
 		var_dump($result);
 		if ($result->num_rows > 0) {
 			$sql = "delete from newsletter where mail='".$mail."';";
 			$conn->query($sql);
+			newsletterActiveCancel($mail,$tmp);
 			header("Location: newsletter.php?status=0");
 		}else{
 			header("Location: newsletter.php?status=4");
@@ -34,12 +37,3 @@ if($tmp==1){
 
 	}
 }
-/*
-$sql = "select hash from aktivacia where id='".$_SESSION['user_id']."';";
-$conn = connect();
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-*/
-
-//sendVerificationEmail($_SESSION['user_login'],$row['hash'],$_SESSION['user_id']);
-//header("Location: app_aktivuj_email.php?status=ok");
