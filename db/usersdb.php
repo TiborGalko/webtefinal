@@ -32,9 +32,9 @@ if(isset($_POST['loc'])) {
 function insertNewUser($surname,$name,$email,$schoolname,$schooladdr,$street,$psc,$city,$passwd) {
     $id_school = insertIntoSchool($schoolname,$schooladdr);
     insertIntoUsers($id_school, $surname, $name, $email, $passwd,$street, $psc, $city);
-    /*echo '<script type="text/javascript">
+    echo '<script type="text/javascript">
     window.location = "../index.php"
-    </script>';*/
+    </script>';
 }
 
 //funkcia skontroluje ci je heslo spravne
@@ -68,7 +68,6 @@ function checkSchool($latlng) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $id = $row['id'];
-        print_r($row);
     }
     $conn->close();
     return $id;
@@ -93,7 +92,6 @@ function insertIntoSchool($name, $addr) {
         $loc = $j->results[0]->geometry->location;
         $latlng = $loc->lat . "," . $loc->lng;
         $id = checkSchool($latlng);
-        echo $id;
         if($id != "") {
             return $id;
         }
@@ -239,7 +237,7 @@ function sendVerificationEmail($email,$hash,$id){
     ------------------------
     '.PHP_EOL.'
     Please click this link to activate your account:
-    http://http://147.175.98.141/final/app/verify.php?email='.$email.'&hash='.$hash.'&id='.$id.'';
+    http://147.175.98.141/final/app/verify.php?email='.$email.'&hash='.$hash.'&id='.$id.'';
     $mail->AddAddress($email);
 
     $mail->Send();
@@ -263,7 +261,7 @@ function getAllPrivateTraces(){
     $user_id = $_SESSION['user_id'];
 
     $conn = connect();
-    $sql = "SELECT * FROM traces WHERE id_autor='$user_id'";
+    $sql = "SELECT * FROM traces WHERE id_autor='$user_id' and mode='privatny'";
     $result = $conn->query($sql);
 
     $sql2 = "SELECT * FROM users WHERE id='$user_id'";
@@ -320,7 +318,7 @@ function insertIntoTraces($user_id, $from, $to, $mode){
         }
         }
     }
-
+    changeToken();
     $conn->close();
 }
 
@@ -398,4 +396,12 @@ function insertIntoNews($user_id, $title, $text){
 
     $conn->close();
 
+}
+
+//zmeni token po pridani alebo modifikovani trasy
+function changeToken(){
+    $myfile = fopen("../app/token.txt", "w") or die ("Nepodarilo sa otvorit subor");
+    $hash = md5( rand(0,1000) );
+    fwrite($myfile, $hash);
+    fclose($myfile);
 }

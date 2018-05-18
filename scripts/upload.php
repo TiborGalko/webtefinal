@@ -2,7 +2,7 @@
 include_once "../db/usersdb.php";
 
 if(isset($_POST['submit'])) {
-    parseCsv($_FILES['file']['tmp_name'], $_POST['delim'], $_POST['riadok']);
+    parseCsv($_FILES['file']['tmp_name'], $_POST['delim'], $_POST['riadok'], $_POST['encoding']);
 }
 
 //prevzate z https://secure.php.net/manual/en/function.mb-convert-encoding.php
@@ -59,7 +59,7 @@ function w1250_to_utf8($text) {
 }
 
 //rozdelenie uploadnuteho csv
-function parseCsv($file, $delim, $riadok) {
+function parseCsv($file, $delim, $riadok, $enc) {
     if (($handle = fopen($file, "r")) !== FALSE) {
         $row = 1;
         while (($data = fgetcsv($handle, 1000, $delim)) !== FALSE) {
@@ -72,7 +72,12 @@ function parseCsv($file, $delim, $riadok) {
             $user = array();
             $school = array();
             for ($c = 0; $c < $num; $c++) {
-                $d = str_replace (array("\r\n", "\n", "\r", "\n\r"), ' ', w1250_to_utf8($data[$c]));
+                if($enc === "utf8") {
+                    $d = str_replace(array("\r\n", "\n", "\r", "\n\r"), ' ', $data[$c]);
+                }
+                else if ($enc === "win1250") {
+                    $d = str_replace (array("\r\n", "\n", "\r", "\n\r"), ' ', w1250_to_utf8($data[$c]));
+                }
                 $d = str_replace("'", '', $d);
                 $d = trim($d);
                 switch ($c) {

@@ -65,7 +65,13 @@
             <input id="riadok" type="number" class="form-control" name="riadok">
         </div>
         </div>
-
+        <div class="form-group">
+            <label for="encoding">Kódovanie: </label>
+            <select id="encoding" class="form-control" name="encoding">
+                <option value="utf8">UTF-8</option>
+                <option value="win1250">Windows 1250</option>
+            </select>
+        </div>
 
         Select file to upload:
         <input type="file" name="file" id="file">
