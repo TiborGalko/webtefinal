@@ -22,6 +22,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
+    <script src="vykony.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
@@ -76,39 +77,5 @@
     </p>
     <input type="button" value="Stiahnuť ako PDF" onclick="createPdf()">
 </div>
-<script>
-    function sort(columnName) {
-        let order = $("#tabOrder").val();
-        console.log("colname " + columnName + " order " + order);
-        $.ajax({
-            url: "../db/vykonydb.php",
-            type: "post",
-            data: {columnName: columnName, order: order},
-            success: function (response) {
-                let mainTable = $("#tabVykonov");
-                mainTable.find("tr:gt(0)").remove();
-                mainTable.append(response);
-
-                let order = $("#tabOrder");
-                if(order.val() === "asc") {
-                    order.val("desc");
-                }
-                else order.val("asc");
-                $("#tabColumn").val(columnName);
-            }
-        });
-    }
-
-    function createPdf() {
-        let order = $("#tabOrder");
-        let orderVal = order.val();
-        if(orderVal === "asc") {
-            orderVal = "desc";
-        }
-        else orderVal = "asc";
-        let col = $("#tabColumn").val();
-        window.location.href = "../scripts/create_pdf.php?col="+col+"&order="+orderVal;
-    }
-</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 
     include_once "../db/usersdb.php";
-    include_once "../db/db.php";
+    include_once "../db/db.php";  
 
     session_start();
 
@@ -66,6 +66,8 @@
 <div class="container">
     <div id="mapaTras"></div>
 
+
+
      <!--         Pridavanie trasy           -->
 
     <div id="alert-success" class="alert alert-success alert-dismissible">
@@ -100,10 +102,10 @@
     <!--            TABULKA     TRAS            -->
 
     <div>
-    <label for="filterTras">Filtrovanie trás</label>
-        <select id="filterTras">
-            <option>test...</option>
-        </select>
+    <label for="filterTras">Filtrovanie trás podla uzivatela</label>
+        <input type="text" name="user" class="form-control" style="width: 250px;" id="filter_text">
+        <input type="button" id="filter_button" class="btn btn-primary" value="Filtrovat"><br>
+        <span id="filter_cancel">Zrusit filter</span>
     </div>
     <header>
         <h2>Tabuľka trás</h2>
@@ -113,23 +115,19 @@
         <tr>
             <th>Odkiaľ</th>
             <th>Kam</th>
-            <th>Aktívna/Neaktívna</th>
             <th>Mód</th>
             <th>Uživateľ</th>
-        </tr>
-        <?php //getAllTraces();  ?>
+        </tr>        
         </thead>
         <tbody>
+        <?php getAllTraces();  ?>
         </tbody>
     </table>
 
 
-
+    <a href="../news/news-add.php"><input type="button" name="pridatNovinku" id="news_add" value="Pridat aktualitu" class="btn btn-primary"></a>
     <aside>
-        <?php
-
-        include_once "../db/usersdb.php";
-        include_once "../db/db.php";   
+        <?php        
 
         // ZOBRAZOVANIE AKTUALIT
 

@@ -1,4 +1,11 @@
 <?php
+include_once "../db/usersdb.php";
+include_once "../db/vykonydb.php";
+
+session_start();
+
+$userinfo = getAllUserInfoFromUsers();
+
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -19,6 +26,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
+    <script src="vykony.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
@@ -48,27 +56,53 @@
     </ul>
 </nav>
 <div class="container">
+    <h2>Uživatelia</h2>
     <table class="table">
         <thead>
         <tr>
-            <th>Počet kilometrov</th>
-            <th>Deň</th>
-            <th>Začiatok tréningu</th>
-            <th>Koniec tréningu</th>
-            <th>GPS štart</th>
-            <th>GPS cieľ</th>
-            <th>Hodnotenie</th>
-            <th>Poznámka</th>
-            <th>Priemerná rýchlosť</th>
+            <th>Email</th>
+            <th>Meno</th>
+            <th>Priezvisko</th>
         </tr>
         </thead>
         <tbody>
+        <?php
+        foreach($userinfo as $row) {
+            if($row['role'] === 'user') {
+                echo "<tr onclick='getUserVykony(" . $row['id'] . ")'>" .
+                    "<td>" . $row['email'] . "</td>" .
+                    "<td>" . $row['name'] . "</td>" .
+                    "<td>" . $row['surname'] . "</td></tr>";
+            }
+        }
+        ?>
+        </tbody>
+    </table>
 
+    <input type="hidden" id="tabOrder" value="asc">
+    <input type="hidden" id="tabColumn" value="id">
+    <input type="hidden" id="user_id" value="">
+    <table id="tabVykonov" class="table">
+        <thead>
+        <tr>
+            <th onclick="sort('kilometre')">Počet kilometrov</th>
+            <th onclick="sort('den')">Deň</th>
+            <th onclick="sort('cas_start')">Začiatok tréningu</th>
+            <th onclick="sort('cas_finish')">Koniec tréningu</th>
+            <th onclick="sort('latlng_start')">GPS štart</th>
+            <th onclick="sort('latlng_finish')">GPS cieľ</th>
+            <th onclick="sort('hodnotenie')">Hodnotenie</th>
+            <th onclick="sort('poznamka')">Poznámka</th>
+            <th onclick="sort('rychlost')">Priemerná rýchlosť</th>
+        </tr>
+        </thead>
+        <tbody>
         </tbody>
     </table>
     <p>
         Priemerný počet kilometrov na jeden tréning je <span id="priemer"></span>
     </p>
+    <input type="button" value="Stiahnuť ako PDF" onclick="createPdf()">
 </div>
 </body>
 </html>

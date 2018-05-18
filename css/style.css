@@ -44,3 +44,21 @@ nav {
 #alert-fail {
     display: none;
 }
+
+.td-active {
+    color: green;
+}
+
+.td-noactive {
+    color: gray;
+    cursor: pointer;
+}
+
+.td-noactive:hover {
+    color: black;
+}
+
+#filter_cancel {
+    color: blue;
+    cursor: pointer;
+}

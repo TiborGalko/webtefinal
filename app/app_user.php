@@ -161,7 +161,8 @@
             <th>Aktívna/Neaktívna</th>
             <th>Mód</th>
         </tr>
-        <?php //getAllTraces();  ?>
+        <?php getAllPrivateTraces();  ?>
+        <?php getAllPublicTraces();  ?>
         </thead>
         <tbody>
         </tbody>

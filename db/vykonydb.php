@@ -10,14 +10,27 @@ if(isset($_POST['kilometre'])) {
     }
 }
 
-if(isset($_POST['columnName'])) {
+if(isset($_POST['columnName']) && !isset($_POST['user_id'])) {
     $columnName = $_POST['columnName'];
     $order = $_POST['order'];
     if(isset($_SESSION['user_id'])) {
         $result = getVykonyByUserIdSorted($_SESSION['user_id'],$columnName,$order);
         echo $result;
     }
+}
 
+if(isset($_POST['user_id']) && isset($_POST['columnName']) && isset($_POST['order'])) {
+    $columnName = $_POST['columnName'];
+    $order = $_POST['order'];
+    $result = getVykonyByUserIdSorted($_POST['user_id'],$columnName,$order);
+    echo $result;
+}
+
+//pre admina
+if(isset($_POST['user_id']) && !isset($_POST['columnName']) && !isset($_POST['order'])) {
+    $result = getVykonyByUserIdSorted($_POST['user_id']);
+    $priemer = getPriemernuVzdialenostByUserId($_POST['user_id']);
+    echo json_encode('{"result": "'.$result.'", "priemer": "'.$priemer.'"}');
 }
 
 //funkcia na nastavenie premennych pre vkladanie vykonu
@@ -67,7 +80,7 @@ function vytvoritVykon($km) {
         $den = $_POST['den'];
     }
     insertIntoVykony($km,$user_id,$den,$casStartu,$casKonca,$latlngStart,$latlngCiel,$hodnotenie,$poznamka,$rychlost);
-    //header("Location: ../app/app_user.php"); TODO
+    header("Location: ../app/app_user.php");
 }
 
 //vkladanie do tabulky vykonov
@@ -76,9 +89,9 @@ function insertIntoVykony($km, $user_id, $den, $casStart, $casKoniec, $miestoSta
     $sql = "INSERT INTO vykony(user_id, kilometre, den, cas_start, cas_finish, latlng_start, latlng_finish, hodnotenie, poznamka, rychlost) ".
         "VALUES(".$user_id.",".$km.",'".$den."','".$casStart."','".$casKoniec."','".$miestoStart."','".$miestoCiel."','".$hodnotenie."','".$poznamka."',".$rychlost.")";
     if ($conn->query($sql) === TRUE) {
-        echo "Záznam úspešne zapísaný" . "<br>";
+        //echo "Záznam úspešne zapísaný" . "<br>";
     } else {
-        echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";
+        //echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
     }
     $conn->close();
 }
@@ -106,7 +119,7 @@ function getVykonyByUserIdSorted($user_id, $sort = "id", $order = "asc") {
         }
     }
     else {
-        echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";
+        //echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
     }
     $conn->close();
     return $output;
@@ -124,7 +137,7 @@ function getPriemernuVzdialenostByUserId($user_id) {
         $priemer = $priemer / $result->num_rows; //vypocet priemeru
     }
     else {
-        echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>";
+        //echo "Chyba: " . $sql . "<br>" . $conn->error . "<br>"; //TODO
     }
     $conn->close();
     return $priemer;

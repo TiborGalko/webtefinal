@@ -6,13 +6,19 @@ include_once "../db/vykonydb.php";
 
 session_start();
 
-if(isset($_SESSION['user_id'])) {
+if(isset($_SESSION['user_id']) && (!isset($_GET['id']) || $_GET['id'] === "")) {
     if(isset($_GET['col']) && isset($_GET['order'])) {
         $col = $_GET['col'];
         $order = $_GET['order'];
         outputPdf($_SESSION['user_id'], $col, $order);
     }
-
+}
+else if(isset($_GET['id']) && $_GET['id'] !== "") {
+    if(isset($_GET['col']) && isset($_GET['order'])) {
+        $col = $_GET['col'];
+        $order = $_GET['order'];
+        outputPdf($_GET['id'], $col, $order);
+    }
 }
 
 function outputPdf($user_id, $col, $order)
